@@ -2,7 +2,9 @@
   import "@fontsource/inter";
 </script>
 
-<figure class="grid h-screen w-screen place-content-center">
+<figure
+  class="grid h-screen w-screen place-content-center bg-[hsl(210,20%,10%)]"
+>
   <figcaption
     class="bg-transparent bg-gradient-to-r from-blaze-300 to-blaze-500 bg-clip-text p-9 font-[Inter] font-semibold text-transparent"
     style="font-size: 25vmin; line-height: 1;"
