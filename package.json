@@ -8,12 +8,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yanneves/browser.icu.git"
+    "url": "git+https://github.com/yanneves/browserdao.git"
   },
   "author": "Yann Eves <hello@yanneves.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/yanneves/browser.icu/issues"
+    "url": "https://github.com/yanneves/browserdao/issues"
   },
   "homepage": "https://browser.icu/"
 }
