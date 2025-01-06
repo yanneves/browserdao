@@ -2,16 +2,31 @@
   import "@fontsource/inter";
 </script>
 
+<!-- Logo actual coded ik -->
+
 <figure
-  class="grid h-screen w-screen place-content-center bg-[hsl(210,20%,10%)]"
+  class="grid h-screen w-screen place-content-center overflow-hidden bg-[hsl(210,20%,10%)]"
 >
   <figcaption
-    class="bg-transparent bg-gradient-to-r from-blaze-300 to-blaze-500 bg-clip-text p-9 font-[Inter] font-semibold text-transparent"
+    class="select-none bg-transparent bg-gradient-to-r from-blaze-300 to-blaze-500 bg-clip-text p-32 font-[Inter] font-semibold text-transparent sm:p-9"
     style="font-size: 25vmin; line-height: 1;"
   >
-    WWW .
+    WW<br class="sm:hidden" />W .
   </figcaption>
 </figure>
+
+<!-- WTF DID I DO!? MOLESKIN EFFECT POG -->
+<!-- <svg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'>
+  <filter id='noiseFilter'>
+    <feTurbulence
+      type='fractalNoise'
+      baseFrequency='1.1'
+      numOctaves='6'
+      stitchTiles='stitch'/>
+  </filter>
+  
+  <rect width='100%' height='100%' filter='url(#noiseFilter)'/>
+</svg> -->
 
 <style>
   figure {
