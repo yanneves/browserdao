@@ -1,0 +1,19 @@
+{
+  "name": "browserdao",
+  "version": "0.0.0-alpha.0",
+  "description": "Control the web's most powerful autonomous browser agents",
+  "type": "module",
+  "workspaces": [
+    "apps/www"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yanneves/browser.icu.git"
+  },
+  "author": "Yann Eves <hello@yanneves.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yanneves/browser.icu/issues"
+  },
+  "homepage": "https://browser.icu/"
+}

@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Defined as raw hsl() values, see https://tailwindcss.com/docs/customizing-colors#using-css-variables */
+
+    --color-blaze-50: 45 100% 95%; /* Pale yellow */
+    --color-blaze-100: 45 100% 90%; /* Light yellow */
+    --color-blaze-200: 35 100% 80%; /* Soft orange */
+    --color-blaze-300: 30 100% 70%; /* Vibrant orange */
+    --color-blaze-400: 25 90% 60%; /* Strong orange */
+    --color-blaze-500: 15 86% 50%; /* Intense orange-red */
+    --color-blaze-600: 10 80% 40%; /* Fiery red */
+    --color-blaze-700: 5 75% 30%; /* Deep red */
+    --color-blaze-800: 0 70% 20%; /* Dark red */
+    --color-blaze-900: 0 60% 15%; /* Very dark red */
+    --color-blaze-950: 0 50% 10%; /* Almost black with a red hue */
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-blaze-50: 0 50% 10%; /* Almost black with a red hue */
+      --color-blaze-100: 0 60% 15%; /* Very dark red */
+      --color-blaze-200: 0 70% 20%; /* Dark red */
+      --color-blaze-300: 5 75% 30%; /* Deep red */
+      --color-blaze-400: 10 80% 40%; /* Fiery red */
+      --color-blaze-500: 15 86% 50%; /* Intense orange-red */
+      --color-blaze-600: 25 90% 60%; /* Strong orange */
+      --color-blaze-700: 30 100% 70%; /* Vibrant orange */
+      --color-blaze-800: 35 100% 80%; /* Soft orange */
+      --color-blaze-900: 45 100% 90%; /* Light yellow */
+      --color-blaze-950: 45 100% 95%; /* Pale yellow */
+    }
+  }
+}
