@@ -20,7 +20,7 @@
       class="flex w-full min-w-64 gap-x-4 rounded-md bg-zinc-700/70 px-3.5 py-2.5 text-sm font-semibold text-blaze-300 shadow-sm ring-2 ring-transparent hover:bg-zinc-700/30 hover:ring-blaze-300 focus:bg-zinc-700/30 focus:outline-none focus:ring-blaze-300"
       onclick={() => trackEvent("Joined Discord")}
     >
-      <i class="iconify-color logos--discord-icon size-7"></i>
+      <i class="iconify-color size-7 logos--discord-icon"></i>
       <span class="mx-auto text-lg">Join Discord</span>
     </a>
     <a
@@ -28,7 +28,7 @@
       class="flex w-full min-w-64 gap-x-4 rounded-md bg-zinc-700/70 px-3.5 py-2.5 text-sm font-semibold text-blaze-300 shadow-sm ring-2 ring-transparent hover:bg-zinc-700/30 hover:ring-blaze-300 focus:bg-zinc-700/30 focus:outline-none focus:ring-blaze-300"
       onclick={() => trackEvent("Followed Twitter")}
     >
-      <i class="iconify-color logos--twitter size-7"></i>
+      <i class="iconify-color size-7 logos--twitter"></i>
       <span class="mx-auto text-lg">Follow @browserdao</span>
     </a>
   </section>
