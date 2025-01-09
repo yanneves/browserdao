@@ -25,6 +25,8 @@ jobs:
       - run: npm ci
       - run: npm run build -w @browserdao/www
         env:
+          PUBLIC_FATHOM_KEY: "{{ vars.PUBLIC_FATHOM_KEY }}"
+          PUBLIC_DISCORD_INVITE_KEY: "{{ vars.PUBLIC_DISCORD_INVITE_KEY }}"
           CI: true
 
   dependabot:
