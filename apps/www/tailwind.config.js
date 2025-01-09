@@ -1,5 +1,8 @@
+import icons from "./tailwind.icons.js";
+
 /** @type {import('tailwindcss').Config} */
 export default {
+  plugins: [icons],
   content: ["./src/**/*.{html,js,svelte,ts}"],
 
   theme: {

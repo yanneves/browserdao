@@ -1,36 +1,36 @@
 <script>
   import "@fontsource/inter";
+  import trackEvent from "$lib/utils/trackEvent";
 </script>
 
-<!-- Logo actual coded ik -->
-
-<figure
-  class="grid h-screen w-screen place-content-center overflow-hidden bg-[hsl(210,20%,10%)]"
+<article
+  class="flex min-h-full flex-col items-center gap-y-8 pb-6 pt-24 sm:pt-48"
 >
-  <figcaption
-    class="select-none bg-transparent bg-gradient-to-r from-blaze-300 to-blaze-500 bg-clip-text p-32 font-[Inter] font-semibold text-transparent sm:p-9"
+  <mark
+    class="select-none bg-transparent bg-gradient-to-r from-blaze-300 to-blaze-500 bg-clip-text p-4 font-[Inter] font-semibold text-transparent"
     style="font-size: 25vmin; line-height: 1;"
   >
     WW<br class="sm:hidden" />W .
-  </figcaption>
-</figure>
-
-<!-- WTF DID I DO!? MOLESKIN EFFECT POG -->
-<!-- <svg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'>
-  <filter id='noiseFilter'>
-    <feTurbulence
-      type='fractalNoise'
-      baseFrequency='1.1'
-      numOctaves='6'
-      stitchTiles='stitch'/>
-  </filter>
-  
-  <rect width='100%' height='100%' filter='url(#noiseFilter)'/>
-</svg> -->
-
-<style>
-  figure {
-    mask-type: luminance;
-    mask: url(data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PScwIDAgNDAwIDQwMCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4NCiAgPGZpbHRlciBpZD0nbm9pc2VGaWx0ZXInPg0KICAgIDxmZVR1cmJ1bGVuY2UgDQogICAgICB0eXBlPSdmcmFjdGFsTm9pc2UnIA0KICAgICAgYmFzZUZyZXF1ZW5jeT0nMS4xJyANCiAgICAgIG51bU9jdGF2ZXM9JzYnIA0KICAgICAgc3RpdGNoVGlsZXM9J3N0aXRjaCcvPg0KICA8L2ZpbHRlcj4NCiAgDQogIDxyZWN0IHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIGZpbHRlcj0ndXJsKCNub2lzZUZpbHRlciknLz4NCjwvc3ZnPg==);
-  }
-</style>
+  </mark>
+  <section
+    class="z-10 flex flex-col items-center justify-around gap-x-8 gap-y-4 py-4 sm:flex-row"
+  >
+    <a
+      href="/discord"
+      class="flex w-full min-w-64 gap-x-4 rounded-md bg-zinc-700/70 px-3.5 py-2.5 text-sm font-semibold text-blaze-300 shadow-sm ring-2 ring-transparent hover:bg-zinc-700/30 hover:ring-blaze-300 focus:bg-zinc-700/30 focus:outline-none focus:ring-blaze-300"
+      onclick={() => trackEvent("Joined Discord")}
+    >
+      <i class="iconify-color logos--discord-icon size-7"></i>
+      <span class="mx-auto text-lg">Join Discord</span>
+    </a>
+    <a
+      href="/twitter"
+      class="flex w-full min-w-64 gap-x-4 rounded-md bg-zinc-700/70 px-3.5 py-2.5 text-sm font-semibold text-blaze-300 shadow-sm ring-2 ring-transparent hover:bg-zinc-700/30 hover:ring-blaze-300 focus:bg-zinc-700/30 focus:outline-none focus:ring-blaze-300"
+      onclick={() => trackEvent("Followed Twitter")}
+    >
+      <i class="iconify-color logos--twitter size-7"></i>
+      <span class="mx-auto text-lg">Follow @browserdao</span>
+    </a>
+  </section>
+  <p class="mt-auto">&copy; 2025 $BROWSER DAO</p>
+</article>
