@@ -2,7 +2,7 @@
   const { children } = $props();
 </script>
 
-<aside class="film-grain pointer-events-none absolute inset-0">
+<aside class="film-grain pointer-events-none fixed inset-0">
   {@render children()}
 </aside>
 
