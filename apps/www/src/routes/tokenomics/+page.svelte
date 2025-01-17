@@ -90,7 +90,7 @@
       </li>
       <li>
         <strong>Staking Rewards</strong>: Daily returns, future airdrops, and
-        engagement incentives
+        engagement incentives on Meteora M3M3
       </li>
       <li>
         <strong>Governance</strong>: Community-driven decisions for treasury and
@@ -102,6 +102,7 @@
       <strong>Phase 1</strong>: Release and continuously improve beta models<br
       /><strong>Phase 2</strong>: Build integrations with ecosystem partners<br
       /><strong>Phase 3</strong>: Embed Solana knowledge graph to drive AGI
+      (Artificial General Intelligence)
     </p>
     <h3 id="7-governance"><strong>7. Governance</strong></h3>
     <p>
