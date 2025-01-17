@@ -2,7 +2,7 @@ import icons from "./tailwind.icons.js";
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  plugins: [icons],
+  plugins: [require("@tailwindcss/typography"), icons],
   content: ["./src/**/*.{html,js,svelte,ts}"],
 
   theme: {

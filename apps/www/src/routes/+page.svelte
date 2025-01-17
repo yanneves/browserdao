@@ -34,5 +34,17 @@
       <span class="mx-auto text-lg">Follow @browserdao</span>
     </a>
   </section>
-  <p class="mt-auto">&copy; 2025 $BROWSER DAO</p>
+  <footer
+    class="mt-auto flex flex-col items-center justify-center gap-y-px sm:gap-y-4"
+  >
+    <p class="z-10 flex items-center gap-x-1">
+      <a
+        href="/tokenomics"
+        class="flex w-full gap-x-1 rounded-md px-3.5 py-2.5 text-sm font-semibold text-blaze-300 shadow-sm ring-2 ring-transparent hover:ring-blaze-300 focus:outline-none focus:ring-blaze-300"
+        ><i class="iconify size-5 lucide--newspaper"></i>
+        <span class="mx-auto">Tokenomics</span></a
+      >
+    </p>
+    <p>&copy; 2025 $BROWSER DAO</p>
+  </footer>
 </article>
