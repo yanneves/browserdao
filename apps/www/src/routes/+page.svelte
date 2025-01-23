@@ -5,11 +5,11 @@
 </script>
 
 <article
-  class="flex min-h-full flex-col items-center gap-y-8 pb-6 pt-16 sm:pt-28"
+  class="flex min-h-full flex-col items-center gap-y-8 pt-16 pb-6 sm:pt-28"
 >
   <CertificateAuthority mint="AYHXXJhuQ7m26QjSJwgynfDcy4BVDfxG4zjATmYXjswk" />
   <mark
-    class="select-none bg-transparent bg-linear-to-r from-blaze-300 to-blaze-500 bg-clip-text p-4 font-[Inter] font-semibold text-transparent"
+    class="from-blaze-300 to-blaze-500 bg-transparent bg-linear-to-r bg-clip-text p-4 font-[Inter] font-semibold text-transparent select-none"
     style="font-size: 25vmin; line-height: 1;"
   >
     WW<br class="sm:hidden" />W .
@@ -19,18 +19,18 @@
   >
     <a
       href="/discord"
-      class="flex w-full min-w-64 gap-x-4 rounded-md bg-zinc-700/70 px-3.5 py-2.5 text-sm font-semibold text-blaze-300 shadow-xs ring-2 ring-transparent hover:bg-zinc-700/30 hover:ring-blaze-300 focus:bg-zinc-700/30 focus:outline-hidden focus:ring-blaze-300"
+      class="text-blaze-300 hover:ring-blaze-300 focus:ring-blaze-300 flex w-full min-w-64 gap-x-4 rounded-md bg-zinc-700/70 px-3.5 py-2.5 text-sm font-semibold ring-2 shadow-xs ring-transparent hover:bg-zinc-700/30 focus:bg-zinc-700/30 focus:outline-hidden"
       onclick={() => trackEvent("Joined Discord")}
     >
-      <i class="iconify-color size-7 logos--discord-icon"></i>
+      <i class="iconify-color logos--discord-icon size-7"></i>
       <span class="mx-auto text-lg">Join Discord</span>
     </a>
     <a
       href="/twitter"
-      class="flex w-full min-w-64 gap-x-4 rounded-md bg-zinc-700/70 px-3.5 py-2.5 text-sm font-semibold text-blaze-300 shadow-xs ring-2 ring-transparent hover:bg-zinc-700/30 hover:ring-blaze-300 focus:bg-zinc-700/30 focus:outline-hidden focus:ring-blaze-300"
+      class="text-blaze-300 hover:ring-blaze-300 focus:ring-blaze-300 flex w-full min-w-64 gap-x-4 rounded-md bg-zinc-700/70 px-3.5 py-2.5 text-sm font-semibold ring-2 shadow-xs ring-transparent hover:bg-zinc-700/30 focus:bg-zinc-700/30 focus:outline-hidden"
       onclick={() => trackEvent("Followed Twitter")}
     >
-      <i class="iconify-color size-7 logos--x"></i>
+      <i class="iconify-color logos--x size-7"></i>
       <span class="mx-auto text-lg">Follow @browserdao</span>
     </a>
   </section>
@@ -40,8 +40,8 @@
     <p class="z-10 flex items-center gap-x-1">
       <a
         href="/tokenomics"
-        class="flex w-full gap-x-1 rounded-md px-3.5 py-2.5 text-sm font-semibold text-blaze-300 shadow-xs ring-2 ring-transparent hover:ring-blaze-300 focus:outline-hidden focus:ring-blaze-300"
-        ><i class="iconify size-5 lucide--newspaper"></i>
+        class="text-blaze-300 hover:ring-blaze-300 focus:ring-blaze-300 flex w-full gap-x-1 rounded-md px-3.5 py-2.5 text-sm font-semibold ring-2 shadow-xs ring-transparent focus:outline-hidden"
+        ><i class="iconify lucide--newspaper size-5"></i>
         <span class="mx-auto">Tokenomics</span></a
       >
     </p>

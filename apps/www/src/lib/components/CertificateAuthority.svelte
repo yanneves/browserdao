@@ -19,10 +19,10 @@
     class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 transition-opacity"
     class:opacity-100={copying}>Copied!</small
   >
-  <i class="iconify size-5 lucide--rocket motion-safe:animate-pulse"></i>
+  <i class="iconify lucide--rocket size-5 motion-safe:animate-pulse"></i>
   <button
     type="button"
-    class="sr-only cursor-pointer rounded-md font-mono focus:outline-hidden focus:ring-1 focus:ring-blaze-300 sm:not-sr-only sm:px-1"
+    class="focus:ring-blaze-300 sr-only cursor-pointer rounded-md font-mono focus:ring-1 focus:outline-hidden sm:not-sr-only sm:px-1"
     data-addr={mint}
     onclick={copyAddress}>{mint}</button
   >
