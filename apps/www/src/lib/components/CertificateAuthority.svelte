@@ -22,14 +22,14 @@
   <i class="iconify size-5 lucide--rocket motion-safe:animate-pulse"></i>
   <button
     type="button"
-    class="sr-only cursor-pointer rounded-md font-mono focus:outline-none focus:ring-1 focus:ring-blaze-300 sm:not-sr-only sm:px-1"
+    class="sr-only cursor-pointer rounded-md font-mono focus:outline-hidden focus:ring-1 focus:ring-blaze-300 sm:not-sr-only sm:px-1"
     data-addr={mint}
     onclick={copyAddress}>{mint}</button
   >
   <button
     type="button"
     data-addr={mint}
-    class="cursor-pointer rounded-md px-1 focus:outline-none sm:hidden"
+    class="cursor-pointer rounded-md px-1 focus:outline-hidden sm:hidden"
     onclick={copyAddress}
     >{mint.substring(0, 5)}...{mint.substring(mint.length - 4, mint.length)}
   </button>
