@@ -6,6 +6,7 @@
   "workspaces": [
     "apps/agent",
     "apps/browser",
+    "apps/chat",
     "apps/www"
   ],
   "repository": {
