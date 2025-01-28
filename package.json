@@ -5,6 +5,7 @@
   "type": "module",
   "workspaces": [
     "apps/agent",
+    "apps/browser",
     "apps/www"
   ],
   "repository": {
