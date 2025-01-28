@@ -4,6 +4,7 @@
   "description": "Control the web's most powerful autonomous browser agents",
   "type": "module",
   "workspaces": [
+    "apps/agent",
     "apps/www"
   ],
   "repository": {
