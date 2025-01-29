@@ -57,7 +57,7 @@
   <div class="relative flex flex-col gap-y-6 sm:py-6 sm:pl-3">
     <div class="rounded-md border border-gray-300">
       <div
-        class="flex items-center justify-between border-b border-gray-400 bg-bg-100 p-2"
+        class="bg-bg-100 flex items-center justify-between border-b border-gray-400 p-2"
       >
         <aside class="flex justify-around space-x-1">
           <div class="h-2.5 w-2.5 rounded-full bg-gray-500"></div>
@@ -65,13 +65,13 @@
           <div class="h-2.5 w-2.5 rounded-full bg-gray-500"></div>
         </aside>
         <div
-          class="mx-auto flex w-4/5 items-center gap-x-2 rounded-md border border-gray-300 bg-bg-50 px-4 py-1"
+          class="bg-bg-50 mx-auto flex w-4/5 items-center gap-x-2 rounded-md border border-gray-300 px-4 py-1"
         >
-          <i class="iconify size-5 text-gray-500 lucide--shield"></i>
+          <i class="iconify lucide--shield size-5 text-gray-500"></i>
           <span class="cursor-default text-gray-500">https://{url}</span>
         </div>
       </div>
-      <figure class="relative grid aspect-video bg-bg-100">
+      <figure class="bg-bg-100 relative grid aspect-video">
         {#if browser.render}
           <img
             alt="Browser viewport displaying the agent's activity"
@@ -88,21 +88,21 @@
 
     <form onsubmit={run}>
       <div
-        class="relative overflow-hidden rounded-lg border border-gray-300 shadow-sm focus-within:border-primary-500 focus-within:ring-1 focus-within:ring-primary-500"
+        class="focus-within:border-primary-500 focus-within:ring-primary-500 relative overflow-hidden rounded-lg border border-gray-300 shadow-xs focus-within:ring-1"
       >
         <label for="prompt" class="sr-only">Prompt</label>
         <textarea
           rows="4"
           name="prompt"
           id="prompt"
-          class="block w-full resize-none border-0 bg-transparent py-0 pt-2.5 text-text-400 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+          class="text-text-400 block w-full resize-none border-0 bg-transparent py-0 pt-2.5 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
           placeholder="Write a prompt..."
           bind:value={prompt}
           required
         ></textarea>
 
         <dl
-          class="absolute bottom-16 right-3 flex items-baseline gap-x-1 rounded-lg bg-bg-100 px-3 py-2"
+          class="bg-bg-100 absolute right-3 bottom-16 flex items-baseline gap-x-1 rounded-lg px-3 py-2"
         >
           <dt class="order-last text-xs">credits remaining</dt>
           <dd class="text-sm font-semibold">
@@ -126,17 +126,17 @@
             <div class="flex">
               <label for="url" class="sr-only">URL</label>
               <div
-                class="flex w-64 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary-600 sm:w-80"
+                class="focus-within:ring-primary-600 flex w-64 rounded-md ring-1 shadow-xs ring-gray-300 ring-inset focus-within:ring-2 focus-within:ring-inset sm:w-80"
               >
                 <span
-                  class="flex select-none items-center pl-3 text-gray-500 sm:text-sm"
+                  class="flex items-center pl-3 text-gray-500 select-none sm:text-sm"
                   >https://</span
                 >
                 <input
                   type="text"
                   name="url"
                   id="url"
-                  class="block w-full flex-1 border-0 bg-transparent py-1.5 pl-1 text-text-400 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                  class="text-text-400 block w-full flex-1 border-0 bg-transparent py-1.5 pl-1 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                   placeholder="example.com"
                   bind:value={url}
                   required
@@ -147,11 +147,11 @@
               {#if feed.status === "idle"}
                 <button
                   type="submit"
-                  class="inline-flex items-center rounded-md bg-primary-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 disabled:hover:bg-primary-600"
+                  class="bg-primary-600 hover:bg-primary-700 focus-visible:outline-primary-600 disabled:hover:bg-primary-600 inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-xs focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                   disabled={launching}
                 >
                   {#if launching}
-                    <i class="iconify size-5 svg-spinners--gooey-balls-1"></i>
+                    <i class="iconify svg-spinners--gooey-balls-1 size-5"></i>
                   {:else}
                     <span>Run</span>
                   {/if}
@@ -159,18 +159,18 @@
               {:else if feed.status === "question"}
                 <button
                   type="submit"
-                  class="inline-flex items-center rounded-md bg-primary-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 disabled:hover:bg-primary-600"
+                  class="bg-primary-600 hover:bg-primary-700 focus-visible:outline-primary-600 disabled:hover:bg-primary-600 inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-xs focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                   disabled={prompting}
                 >
                   {#if prompting}
-                    <i class="iconify size-5 svg-spinners--gooey-balls-1"></i>
+                    <i class="iconify svg-spinners--gooey-balls-1 size-5"></i>
                   {:else}
                     <span>Send</span>
                   {/if}
                 </button>
               {:else}
                 <button
-                  class="inline-flex items-center rounded-md bg-accent-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-accent-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500"
+                  class="bg-accent-500 hover:bg-accent-600 focus-visible:outline-accent-500 inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-xs focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                   onclick={cancel}
                 >
                   Cancel
@@ -188,8 +188,8 @@
       <hr class="w-full border-gray-300" />
     </div>
     <div class="relative flex justify-center">
-      <div class="flex justify-center bg-bg-50 px-2">
-        <i class="iconify size-5 text-gray-500 lucide--plus"></i>
+      <div class="bg-bg-50 flex justify-center px-2">
+        <i class="iconify lucide--plus size-5 text-gray-500"></i>
       </div>
     </div>
   </aside>
@@ -215,22 +215,22 @@
     {#if feed.status === "thinking"}
       <li class="relative flex gap-x-4">
         {#if feed.thoughts.length}
-          <div class="absolute -bottom-6 left-0 top-0 flex w-6 justify-center">
+          <div class="absolute top-0 -bottom-6 left-0 flex w-6 justify-center">
             <div class="w-px bg-gray-200"></div>
           </div>
         {/if}
         <div
-          class="relative flex size-6 flex-none items-center justify-center bg-bg-50"
+          class="bg-bg-50 relative flex size-6 flex-none items-center justify-center"
         >
-          <i class="iconify size-2 text-gray-300 lucide--badge"></i>
+          <i class="iconify lucide--badge size-2 text-gray-300"></i>
         </div>
-        <div class="flex-auto rounded-md p-3 ring-1 ring-inset ring-gray-200">
+        <div class="flex-auto rounded-md p-3 ring-1 ring-gray-200 ring-inset">
           <div class="flex justify-between gap-x-4">
-            <div class="py-0.5 text-xs leading-5 text-text-200">
-              <span class="font-medium text-text-400">Agent</span> thinking
+            <div class="text-text-200 py-0.5 text-xs leading-5">
+              <span class="text-text-400 font-medium">Agent</span> thinking
             </div>
           </div>
-          <i class="iconify size-5 text-accent-500 svg-spinners--3-dots-bounce"
+          <i class="iconify text-accent-500 svg-spinners--3-dots-bounce size-5"
           ></i>
         </div>
       </li>
@@ -238,12 +238,12 @@
     {#each feed.thoughts as { status, message }, i}
       <li class="relative flex gap-x-4">
         {#if i < feed.thoughts.length - 1}
-          <div class="absolute -bottom-6 left-0 top-0 flex w-6 justify-center">
+          <div class="absolute top-0 -bottom-6 left-0 flex w-6 justify-center">
             <div class="w-px bg-gray-200"></div>
           </div>
         {/if}
         <div
-          class="relative flex size-6 flex-none items-center justify-center bg-bg-50"
+          class="bg-bg-50 relative flex size-6 flex-none items-center justify-center"
         >
           <i
             class="iconify"
@@ -258,18 +258,18 @@
             class:lucide--badge-x={status === "quit"}
           ></i>
         </div>
-        <div class="flex-auto rounded-md p-3 ring-1 ring-inset ring-gray-200">
+        <div class="flex-auto rounded-md p-3 ring-1 ring-gray-200 ring-inset">
           <div class="flex justify-between gap-x-4">
-            <div class="py-0.5 text-xs leading-5 text-text-200">
-              <span class="font-medium text-text-400">Agent</span> commented
+            <div class="text-text-200 py-0.5 text-xs leading-5">
+              <span class="text-text-400 font-medium">Agent</span> commented
             </div>
             <time
               datetime="2023-01-23T15:56"
-              class="flex-none py-0.5 text-xs leading-5 text-text-200"
+              class="text-text-200 flex-none py-0.5 text-xs leading-5"
               >moments ago</time
             >
           </div>
-          <p class="text-sm leading-6 text-text-200">
+          <p class="text-text-200 text-sm leading-6">
             {message}
           </p>
         </div>
