@@ -202,7 +202,7 @@ export default class Agent extends EventEmitter {
         tools,
         system,
         max_tokens: 5120,
-        temperature: 1.0,
+        temperature: 0.5,
         messages: withCachedPrompts(this._messages),
       });
 
