@@ -11,7 +11,7 @@ jobs:
         with:
           node-version-file: ".nvmrc"
       - run: npm ci
-      - run: npm run lint -w @browserdao/www
+      - run: npm run lint
         env:
           CI: true
 
@@ -23,7 +23,7 @@ jobs:
         with:
           node-version-file: ".nvmrc"
       - run: npm ci
-      - run: npm run build -w @browserdao/www
+      - run: npm run build
         env:
           PUBLIC_FATHOM_KEY: "{{ vars.PUBLIC_FATHOM_KEY }}"
           PUBLIC_DISCORD_INVITE_KEY: "{{ vars.PUBLIC_DISCORD_INVITE_KEY }}"
