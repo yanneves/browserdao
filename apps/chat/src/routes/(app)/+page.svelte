@@ -235,7 +235,7 @@
         </div>
       </li>
     {/if}
-    {#each feed.thoughts as { status, message }, i}
+    {#each feed.thoughts as { status, message }, i (i)}
       <li class="relative flex gap-x-4">
         {#if i < feed.thoughts.length - 1}
           <div class="absolute top-0 -bottom-6 left-0 flex w-6 justify-center">

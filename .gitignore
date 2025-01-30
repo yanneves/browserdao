@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/node,svelte,playwright
-# Edit at https://www.toptal.com/developers/gitignore?templates=node,svelte,playwright
+# Created by https://www.toptal.com/developers/gitignore/api/node,turbo,svelte,vercel
+# Edit at https://www.toptal.com/developers/gitignore?templates=node,turbo,svelte,vercel
 
 ### Node ###
 # Logs
@@ -141,8 +141,6 @@ dist
 # SvelteKit build / generate output
 .svelte-kit
 
-#!! ERROR: playwright is undefined. Use list command to see defined gitignore types !!#
-
 ### Svelte ###
 # gitignore template for the SvelteKit, frontend web component framework
 # website: https://kit.svelte.dev/
@@ -150,4 +148,11 @@ dist
 .svelte-kit/
 package
 
-# End of https://www.toptal.com/developers/gitignore/api/node,svelte,playwright
+### Turbo ###
+# Turborepo task cache
+.turbo
+
+### Vercel ###
+.vercel
+
+# End of https://www.toptal.com/developers/gitignore/api/node,turbo,svelte,vercel
