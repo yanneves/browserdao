@@ -4,10 +4,12 @@
     "lint": {},
     "format": {},
     "dev": {
+      "passThroughEnv": ["CODESPACES"],
       "persistent": true,
       "cache": false
     },
     "build": {
+      "env": ["DATABASE_URL"],
       "dependsOn": ["^build"],
       "outputs": [".svelte-kit/**", "dist/**"]
     }
