@@ -30,8 +30,7 @@ const dataHandler = (type, payload) => {
       clearTimeout(thinkingTimeout);
       if (status === "live") {
         thinkingTimeout = setTimeout(() => (feed.status = "thinking"), 2000);
-      } else if (status !== "live") {
-        // TODO: this is a bit awkward, find another way
+      } else {
         thinkingTimeout = setTimeout(() => (feed.status = "question"), 300);
       }
 
@@ -80,11 +79,13 @@ export function launch(session, prompt, url) {
   feed.reset();
   browser.reset();
 
+  feed.status = "user";
   feed.thoughts.push({ status: "user", message: prompt });
   sendAction("launch", { session, prompt, url });
 }
 
 export function prompt(session, prompt) {
+  feed.status = "user";
   feed.thoughts.push({ status: "user", message: prompt });
   sendAction("prompt", { session, prompt });
 }
