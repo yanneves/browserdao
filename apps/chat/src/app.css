@@ -8,9 +8,6 @@
 @theme {
   --default-font-family: "Inter Variable", sans-serif;
 
-  --color-white: black;
-  --color-black: white;
-
   --color-primary-500: hsl(210 50% 30%); /* Dark blue */
   --color-primary-600: hsl(210 50% 40%);
   --color-primary-700: hsl(210 50% 50%);

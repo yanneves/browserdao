@@ -186,7 +186,7 @@
         </button>
         <button
           type="submit"
-          class="bg-blaze-400 flex cursor-pointer items-center rounded-lg p-2 text-white ring-4 ring-transparent hover:ring-white focus:ring-white focus:outline-hidden disabled:cursor-default"
+          class="bg-blaze-400 flex cursor-pointer items-center rounded-lg p-2 text-black ring-4 ring-transparent hover:ring-black focus:ring-black focus:outline-hidden disabled:cursor-default"
           disabled={prompting || feed.status !== "question"}
         >
           <i
