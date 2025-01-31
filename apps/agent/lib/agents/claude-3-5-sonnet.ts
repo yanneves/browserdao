@@ -118,8 +118,6 @@ export default class Agent extends EventEmitter {
   async ready(): Promise<Page> {
     return new Promise((resolve) => {
       const resolvePage = () => {
-        console.debug("Inside ready check");
-
         if (this._page) {
           return resolve(this._page);
         }
@@ -602,8 +600,6 @@ export default class Agent extends EventEmitter {
     this._session = session;
     this._replay = replay;
     this._aborted = false;
-
-    console.debug("Launching");
 
     const page = await this.ready();
 
