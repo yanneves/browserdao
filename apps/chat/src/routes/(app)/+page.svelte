@@ -15,6 +15,19 @@
     expanded = true;
     requestAnimationFrame(() => input?.focus());
   }
+
+  // Upcoming features
+  let soonAttach = $state.raw(false);
+  function attach() {
+    soonAttach = true;
+    setTimeout(() => (soonAttach = false), 1000);
+  }
+
+  let soonDictate = $state.raw(false);
+  function dictate() {
+    soonDictate = true;
+    setTimeout(() => (soonDictate = false), 1000);
+  }
 </script>
 
 <article
@@ -82,9 +95,14 @@
         {#if expanded}
           <button
             type="button"
-            class="hover:ring-blaze-300 focus:ring-blaze-300 mr-auto flex items-center rounded-lg p-2 ring-2 ring-transparent focus:outline-hidden"
+            class="hover:ring-blaze-300 focus:ring-blaze-300 relative mr-auto flex items-center rounded-lg p-2 ring-2 ring-transparent focus:outline-hidden"
             in:fade={{ duration: 150 }}
+            onclick={attach}
           >
+            <small
+              class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 transition-opacity"
+              class:opacity-100={soonAttach}>Soon&trade;</small
+            >
             <i class="iconify lucide--paperclip size-6"></i>
             <span class="sr-only">Add attachment</span>
           </button>
@@ -93,9 +111,14 @@
           </p>
           <button
             type="button"
-            class="hover:ring-blaze-300 focus:ring-blaze-300 flex items-center rounded-lg p-2 ring-2 ring-transparent focus:outline-hidden"
+            class="hover:ring-blaze-300 focus:ring-blaze-300 relative flex items-center rounded-lg p-2 ring-2 ring-transparent focus:outline-hidden"
             in:fade={{ duration: 150 }}
+            onclick={dictate}
           >
+            <small
+              class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 transition-opacity"
+              class:opacity-100={soonDictate}>Soon&trade;</small
+            >
             <i class="iconify lucide--mic size-6"></i>
             <span class="sr-only">Dictate</span>
           </button>

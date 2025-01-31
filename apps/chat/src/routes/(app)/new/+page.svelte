@@ -49,6 +49,7 @@
 
     prompting = true;
     agent.prompt(session, prompt);
+    prompt = "";
   }
 
   // TODO: hook up to stop button
@@ -56,6 +57,19 @@
   //   event?.preventDefault();
   //   agent.abort(session);
   // }
+
+  // Upcoming features
+  let soonAttach = $state.raw(false);
+  function attach() {
+    soonAttach = true;
+    setTimeout(() => (soonAttach = false), 1000);
+  }
+
+  let soonDictate = $state.raw(false);
+  function dictate() {
+    soonDictate = true;
+    setTimeout(() => (soonDictate = false), 1000);
+  }
 </script>
 
 <article class="flex h-full flex-col gap-y-4 p-4">
@@ -143,18 +157,30 @@
       <div class="flex items-center justify-end gap-x-2 px-2.5 py-2">
         <button
           type="button"
-          class="hover:ring-blaze-300 focus:ring-blaze-300 mr-auto flex items-center rounded-lg p-2 ring-2 ring-transparent focus:outline-hidden"
+          class="hover:ring-blaze-300 focus:ring-blaze-300 relative mr-auto flex items-center rounded-lg p-2 ring-2 ring-transparent focus:outline-hidden"
+          in:fade={{ duration: 150 }}
+          onclick={attach}
         >
+          <small
+            class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 transition-opacity"
+            class:opacity-100={soonAttach}>Soon&trade;</small
+          >
           <i class="iconify lucide--paperclip size-6"></i>
           <span class="sr-only">Add attachment</span>
         </button>
-        <p class="text-sm text-gray-400">
+        <p class="text-sm text-gray-400" in:fade={{ duration: 150 }}>
           {numberStyle.format(account.balance)} credits
         </p>
         <button
           type="button"
-          class="hover:ring-blaze-300 focus:ring-blaze-300 flex items-center rounded-lg p-2 ring-2 ring-transparent focus:outline-hidden"
+          class="hover:ring-blaze-300 focus:ring-blaze-300 relative flex items-center rounded-lg p-2 ring-2 ring-transparent focus:outline-hidden"
+          in:fade={{ duration: 150 }}
+          onclick={dictate}
         >
+          <small
+            class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 transition-opacity"
+            class:opacity-100={soonDictate}>Soon&trade;</small
+          >
           <i class="iconify lucide--mic size-6"></i>
           <span class="sr-only">Dictate</span>
         </button>
