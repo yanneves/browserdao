@@ -1,309 +1,115 @@
 <script>
-  import agent from "$lib/agent.svelte.js";
   import account from "$lib/stores/account.svelte.js";
-  import browser from "$lib/stores/browser.svelte.js";
-  import feed from "$lib/stores/feed.svelte.js";
+  import { fade } from "svelte/transition";
 
   const { data } = $props();
-  const { session } = data;
-
-  let url = $state.raw("");
-  let prompt = $state.raw("");
-  let launching = $state.raw(false);
-  let prompting = $state.raw(false);
-
-  $effect(() => {
-    if (feed.status !== "idle") {
-      launching = false;
-    }
-  });
-
-  $effect(() => {
-    if (feed.status !== "question") {
-      prompting = false;
-    }
-  });
-
-  account.balance = data.balance;
 
   const numberStyle = new Intl.NumberFormat();
+  account.balance = data.balance;
 
-  function run(event) {
-    event?.preventDefault();
+  let input = $state(null);
+  let prompt = $state.raw("");
 
-    if (!url || !prompt) {
-      return;
-    }
-
-    if (feed.status === "idle") {
-      launching = true;
-      agent.launch(session, prompt, `https://${url}`);
-      return;
-    }
-
-    prompting = true;
-    agent.prompt(session, prompt);
-  }
-
-  function cancel(event) {
-    event?.preventDefault();
-    agent.abort(session);
+  let expanded = $state.raw(false);
+  function expand() {
+    expanded = true;
+    requestAnimationFrame(() => input?.focus());
   }
 </script>
 
-<section
-  class="mx-auto max-w-prose px-3 py-6 sm:grid sm:max-h-screen sm:max-w-full sm:grid-cols-2 sm:grid-rows-1 sm:gap-x-3 sm:p-0 xl:max-w-screen-2xl"
+<article
+  class="grid h-full min-w-0 content-center gap-y-8 p-4 sm:max-h-[68rem]"
 >
-  <div class="relative flex flex-col gap-y-6 sm:py-6 sm:pl-3">
-    <div class="rounded-md border border-gray-300">
-      <div
-        class="bg-bg-100 flex items-center justify-between border-b border-gray-400 p-2"
-      >
-        <aside class="flex justify-around space-x-1">
-          <div class="h-2.5 w-2.5 rounded-full bg-gray-500"></div>
-          <div class="h-2.5 w-2.5 rounded-full bg-gray-500"></div>
-          <div class="h-2.5 w-2.5 rounded-full bg-gray-500"></div>
-        </aside>
-        <div
-          class="bg-bg-50 mx-auto flex w-4/5 items-center gap-x-2 rounded-md border border-gray-300 px-4 py-1"
+  <mark
+    class="from-blaze-300 to-blaze-500 mx-auto bg-transparent bg-linear-to-r bg-clip-text text-5xl font-semibold text-transparent select-none"
+  >
+    WW<br />W .
+  </mark>
+  <h1
+    class="text-text-200 relative flex flex-col items-center text-2xl font-medium"
+  >
+    <span>Welcome to $BROWSER DAO</span>
+    <small class="text-base font-light"
+      >Control the world wide web with AI</small
+    >
+  </h1>
+  <form
+    class="relative flex min-w-0 flex-col items-center gap-y-4"
+    method="POST"
+    action="/new"
+    autocomplete="off"
+  >
+    <legend class="text-text-200 font-light">I want to explore:</legend>
+    <input
+      type="url"
+      name="url"
+      class="bg-bg-100 text-text-400 hover:ring-blaze-300 focus:ring-blaze-300 w-full rounded-full border-none px-6 py-4 ring-2 shadow-xs ring-transparent placeholder:text-gray-400 focus:outline-hidden"
+      placeholder="Enter a link"
+      required
+    />
+    <textarea name="prompt" class="hidden" value={prompt}></textarea>
+    <div
+      class="hover:ring-blaze-300 bg-bg-100 text-text-400 has-focus:ring-blaze-300 relative flex w-full flex-col justify-between ring-2 shadow-xs ring-transparent"
+      class:rounded-full={!expanded}
+      class:rounded-2xl={expanded}
+    >
+      {#if !expanded}
+        <button
+          type="button"
+          class="w-full cursor-text px-6 py-4 text-left text-gray-400 focus:outline-hidden"
+          onclick={expand}
+          onfocus={expand}>Tell me what to do&hellip;</button
         >
-          <i class="iconify lucide--shield size-5 text-gray-500"></i>
-          <span class="cursor-default text-gray-500">https://{url}</span>
-        </div>
-      </div>
-      <figure class="bg-bg-100 relative grid aspect-video">
-        {#if browser.render}
-          <img
-            alt="Browser viewport displaying the agent's activity"
-            class="h-full w-full rounded-b-md object-scale-down"
-            src={browser.render}
-          />
-        {:else}
-          <figcaption class="place-self-center text-gray-500">
-            1280 x 720
-          </figcaption>
-        {/if}
-      </figure>
-    </div>
-
-    <form onsubmit={run}>
+      {/if}
+      <p
+        class="text-text-400 relative block max-h-64 max-w-full overflow-hidden overflow-y-auto break-words transition-[min-height] duration-100 ease-out focus:outline-hidden"
+        class:h-0={!expanded}
+        class:min-h-0={!expanded}
+        class:min-h-32={expanded}
+        class:px-6={expanded}
+        class:py-4={expanded}
+        contenteditable
+        bind:textContent={prompt}
+        bind:this={input}
+      ></p>
       <div
-        class="focus-within:border-primary-500 focus-within:ring-primary-500 relative overflow-hidden rounded-lg border border-gray-300 shadow-xs focus-within:ring-1"
+        class="flex items-center justify-end gap-x-2 px-2.5 py-2"
+        class:absolute={!expanded}
+        class:top-0={!expanded}
+        class:right-0={!expanded}
+        class:h-full={!expanded}
       >
-        <label for="prompt" class="sr-only">Prompt</label>
-        <textarea
-          rows="4"
-          name="prompt"
-          id="prompt"
-          class="text-text-400 block w-full resize-none border-0 bg-transparent py-0 pt-2.5 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-          placeholder="Write a prompt..."
-          bind:value={prompt}
-          required
-        ></textarea>
-
-        <dl
-          class="bg-bg-100 absolute right-3 bottom-16 flex items-baseline gap-x-1 rounded-lg px-3 py-2"
-        >
-          <dt class="order-last text-xs">credits remaining</dt>
-          <dd class="text-sm font-semibold">
-            {numberStyle.format(account.balance)}
-          </dd>
-        </dl>
-
-        <aside>
-          <div class="h-px"></div>
-          <div class="py-2">
-            <div class="py-px">
-              <div class="h-9"></div>
-            </div>
-          </div>
-        </aside>
-
-        <div class="absolute inset-x-px bottom-0">
-          <div
-            class="flex items-center justify-between space-x-3 border-t border-gray-200 px-2 py-2 sm:px-3"
+        {#if expanded}
+          <button
+            type="button"
+            class="hover:ring-blaze-300 focus:ring-blaze-300 mr-auto flex items-center rounded-lg p-2 ring-2 ring-transparent focus:outline-hidden"
+            in:fade={{ duration: 150 }}
           >
-            <div class="flex">
-              <label for="url" class="sr-only">URL</label>
-              <div
-                class="focus-within:ring-primary-600 flex w-64 rounded-md ring-1 shadow-xs ring-gray-300 ring-inset focus-within:ring-2 focus-within:ring-inset sm:w-80"
-              >
-                <span
-                  class="flex items-center pl-3 text-gray-500 select-none sm:text-sm"
-                  >https://</span
-                >
-                <input
-                  type="text"
-                  name="url"
-                  id="url"
-                  class="text-text-400 block w-full flex-1 border-0 bg-transparent py-1.5 pl-1 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                  placeholder="example.com"
-                  bind:value={url}
-                  required
-                />
-              </div>
-            </div>
-            <div class="flex-shrink-0">
-              {#if feed.status === "idle"}
-                <button
-                  type="submit"
-                  class="bg-primary-600 hover:bg-primary-700 focus-visible:outline-primary-600 disabled:hover:bg-primary-600 inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-xs focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                  disabled={launching}
-                >
-                  {#if launching}
-                    <i class="iconify svg-spinners--gooey-balls-1 size-5"></i>
-                  {:else}
-                    <span>Run</span>
-                  {/if}
-                </button>
-              {:else if feed.status === "question"}
-                <button
-                  type="submit"
-                  class="bg-primary-600 hover:bg-primary-700 focus-visible:outline-primary-600 disabled:hover:bg-primary-600 inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-xs focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                  disabled={prompting}
-                >
-                  {#if prompting}
-                    <i class="iconify svg-spinners--gooey-balls-1 size-5"></i>
-                  {:else}
-                    <span>Send</span>
-                  {/if}
-                </button>
-              {:else}
-                <button
-                  class="bg-accent-500 hover:bg-accent-600 focus-visible:outline-accent-500 inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-xs focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                  onclick={cancel}
-                >
-                  Cancel
-                </button>
-              {/if}
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
-
-  <aside class="relative py-6 sm:hidden">
-    <div class="absolute inset-0 flex items-center">
-      <hr class="w-full border-gray-300" />
-    </div>
-    <div class="relative flex justify-center">
-      <div class="bg-bg-50 flex justify-center px-2">
-        <i class="iconify lucide--plus size-5 text-gray-500"></i>
+            <i class="iconify lucide--paperclip size-6"></i>
+            <span class="sr-only">Add attachment</span>
+          </button>
+          <p class="text-sm text-gray-400" in:fade={{ duration: 150 }}>
+            {numberStyle.format(account.balance)} credits
+          </p>
+          <button
+            type="button"
+            class="hover:ring-blaze-300 focus:ring-blaze-300 flex items-center rounded-lg p-2 ring-2 ring-transparent focus:outline-hidden"
+            in:fade={{ duration: 150 }}
+          >
+            <i class="iconify lucide--mic size-6"></i>
+            <span class="sr-only">Dictate</span>
+          </button>
+        {/if}
+        <button
+          type="submit"
+          class="bg-blaze-400 flex cursor-pointer items-center p-2 text-white ring-4 ring-transparent hover:ring-white focus:ring-white focus:outline-hidden"
+          class:rounded-full={!expanded}
+          class:rounded-lg={expanded}
+        >
+          <i class="iconify lucide--send size-6"></i>
+          <span class="sr-only">Go</span>
+        </button>
       </div>
     </div>
-  </aside>
-
-  <ul class="relative max-h-full space-y-6 overflow-y-auto sm:py-6 sm:pr-3">
-    <!-- <li class="relative flex gap-x-4">
-      <div class="absolute -bottom-6 left-0 top-0 flex w-6 justify-center">
-        <div class="w-px bg-gray-200"></div>
-      </div>
-      <div
-        class="relative flex h-6 w-6 flex-none items-center justify-center bg-bg-50"
-      >
-        <i class="iconify size-2 text-gray-300 lucide--badge"></i>
-      </div>
-      <p class="flex-auto py-0.5 text-xs leading-5 text-text-200">
-        <span class="font-medium text-text-400">Agent</span> ran out of credits.
-      </p>
-      <time
-        datetime="2023-01-23T11:24"
-        class="flex-none py-0.5 text-xs leading-5 text-text-200">6d ago</time
-      >
-    </li> -->
-    {#if feed.status === "thinking"}
-      <li class="relative flex gap-x-4">
-        {#if feed.thoughts.length}
-          <div class="absolute top-0 -bottom-6 left-0 flex w-6 justify-center">
-            <div class="w-px bg-gray-200"></div>
-          </div>
-        {/if}
-        <div
-          class="bg-bg-50 relative flex size-6 flex-none items-center justify-center"
-        >
-          <i class="iconify lucide--badge size-2 text-gray-300"></i>
-        </div>
-        <div class="flex-auto rounded-md p-3 ring-1 ring-gray-200 ring-inset">
-          <div class="flex justify-between gap-x-4">
-            <div class="text-text-200 py-0.5 text-xs leading-5">
-              <span class="text-text-400 font-medium">Agent</span> thinking
-            </div>
-          </div>
-          <i class="iconify text-accent-500 svg-spinners--3-dots-bounce size-5"
-          ></i>
-        </div>
-      </li>
-    {/if}
-    {#each feed.thoughts as { status, message }, i (i)}
-      <li class="relative flex gap-x-4">
-        {#if i < feed.thoughts.length - 1}
-          <div class="absolute top-0 -bottom-6 left-0 flex w-6 justify-center">
-            <div class="w-px bg-gray-200"></div>
-          </div>
-        {/if}
-        <div
-          class="bg-bg-50 relative flex size-6 flex-none items-center justify-center"
-        >
-          <i
-            class="iconify"
-            class:size-4={status !== "live"}
-            class:text-accent-500={status !== "live"}
-            class:size-2={status === "live"}
-            class:text-gray-300={status === "live"}
-            class:lucide--badge={status === "live"}
-            class:lucide--badge-help={status === "question"}
-            class:lucide--badge-check={status === "complete"}
-            class:lucide--badge-alert={status === "exhausted"}
-            class:lucide--badge-x={status === "quit"}
-          ></i>
-        </div>
-        <div class="flex-auto rounded-md p-3 ring-1 ring-gray-200 ring-inset">
-          <div class="flex justify-between gap-x-4">
-            <div class="text-text-200 py-0.5 text-xs leading-5">
-              <span class="text-text-400 font-medium">Agent</span> commented
-            </div>
-            <time
-              datetime="2023-01-23T15:56"
-              class="text-text-200 flex-none py-0.5 text-xs leading-5"
-              >moments ago</time
-            >
-          </div>
-          <p class="text-text-200 text-sm leading-6">
-            {message}
-          </p>
-        </div>
-      </li>
-    {:else}
-      <li class="relative flex gap-x-4">
-        <div
-          class="relative flex h-6 w-6 flex-none items-center justify-center bg-bg-50"
-        >
-          <i class="iconify size-4 text-gray-300 lucide--badge-info"></i>
-        </div>
-        <div
-          class="flex-auto rounded-md p-3 ring-1 ring-inset ring-gray-200 text-text-400 prose dark:prose-invert"
-        >
-          <p>
-            That browser to the left is controlled by a multimodal AI agent in
-            the cloud. Enter a prompt with an end goal along with a web address
-            of your choice.
-          </p>
-          <p><strong>Known issues:</strong></p>
-          <ul>
-            <li>Agent may continue past its goal</li>
-            <li>Browser stream could be smoother</li>
-            <li>Advanced form inputs can be challenging</li>
-            <li>Doesn't consume video or animated content reliably</li>
-            <li>Can't use multi-factor authentication</li>
-          </ul>
-          <p>
-            The model is improving rapidly. If one of the above prevents you
-            using the tool, be sure to check back soon.
-          </p>
-          <small class="hidden sm:inline">(This app runs on mobile too!)</small>
-        </div>
-      </li>
-    {/each}
-  </ul>
-</section>
+  </form>
+</article>

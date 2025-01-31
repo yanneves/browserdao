@@ -36,7 +36,7 @@ const dataHandler = (type, payload) => {
       }
 
       feed.status = status;
-      feed.thoughts.unshift({ status, message: thoughts });
+      feed.thoughts.push({ status, message: thoughts });
 
       break;
     }
@@ -80,10 +80,12 @@ export function launch(session, prompt, url) {
   feed.reset();
   browser.reset();
 
+  feed.thoughts.push({ status: "user", message: prompt });
   sendAction("launch", { session, prompt, url });
 }
 
 export function prompt(session, prompt) {
+  feed.thoughts.push({ status: "user", message: prompt });
   sendAction("prompt", { session, prompt });
 }
 

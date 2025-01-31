@@ -14,6 +14,7 @@
     "uuid": "^11.0.4"
   },
   "devDependencies": {
+    "@fontsource-variable/inter": "^5.1.1",
     "@ianvs/prettier-plugin-sort-imports": "^4.4.0",
     "@iconify-json/lucide": "^1.2.21",
     "@iconify-json/svg-spinners": "^1.2.2",

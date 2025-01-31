@@ -6,31 +6,36 @@
 @plugin '../tailwind.icons.js';
 
 @theme {
-  --color-primary-500: hsl(210 50% 50%); /* Light blue */
-  --color-primary-600: hsl(210 50% 30%);
-  --color-primary-700: hsl(210 50% 40%);
+  --default-font-family: "Inter Variable", sans-serif;
 
-  --color-accent-500: hsl(300 80% 50%); /* Fuchsia */
-  --color-accent-600: hsl(300 80% 60%);
+  --color-white: black;
+  --color-black: white;
 
-  --color-text-400: hsl(210 15% 20%); /* Darker grey for text */
-  --color-text-200: hsl(210 15% 40%); /* Lighter grey */
+  --color-primary-500: hsl(210 50% 30%); /* Dark blue */
+  --color-primary-600: hsl(210 50% 40%);
+  --color-primary-700: hsl(210 50% 50%);
 
-  --color-bg-50: hsl(0 0% 100%); /* White background */
-  --color-bg-100: hsl(0 0% 95%); /* Off-white */
-  --color-bg-200: hsl(0 0% 90%); /* Light grey background */
+  --color-accent-500: hsl(300 80% 60%); /* Fuchsia */
+  --color-accent-600: hsl(300 80% 50%);
 
-  --color-gray-50: var(--color-slate-50);
-  --color-gray-100: var(--color-slate-100);
-  --color-gray-200: var(--color-slate-200);
-  --color-gray-300: var(--color-slate-300);
-  --color-gray-400: var(--color-slate-400);
+  --color-text-400: hsl(0 0% 100%); /* White text */
+  --color-text-200: hsl(0 0% 85%); /* Light grey text */
+
+  --color-bg-50: hsl(210 20% 10%); /* Very dark blue background */
+  --color-bg-100: hsl(210 20% 15%); /* Darker grey background */
+  --color-bg-200: hsl(210 20% 20%); /* Medium grey */
+
+  --color-gray-50: var(--color-slate-950);
+  --color-gray-100: var(--color-slate-900);
+  --color-gray-200: var(--color-slate-800);
+  --color-gray-300: var(--color-slate-700);
+  --color-gray-400: var(--color-slate-600);
   --color-gray-500: var(--color-slate-500);
-  --color-gray-600: var(--color-slate-600);
-  --color-gray-700: var(--color-slate-700);
-  --color-gray-800: var(--color-slate-800);
-  --color-gray-900: var(--color-slate-900);
-  --color-gray-950: var(--color-slate-950);
+  --color-gray-600: var(--color-slate-400);
+  --color-gray-700: var(--color-slate-300);
+  --color-gray-800: var(--color-slate-200);
+  --color-gray-900: var(--color-slate-100);
+  --color-gray-950: var(--color-slate-50);
 
   --color-blaze-50: hsl(45 100% 95%); /* Pale yellow */
   --color-blaze-100: hsl(45 100% 90%); /* Light yellow */
@@ -43,46 +48,4 @@
   --color-blaze-800: hsl(0 70% 20%); /* Dark red */
   --color-blaze-900: hsl(0 60% 15%); /* Very dark red */
   --color-blaze-950: hsl(0 50% 10%); /* Almost black with a red hue */
-}
-
-@variant dark {
-  @theme {
-    --color-primary-500: hsl(210 50% 30%); /* Dark blue */
-    --color-primary-600: hsl(210 50% 40%);
-    --color-primary-700: hsl(210 50% 50%);
-
-    --color-accent-500: hsl(300 80% 60%); /* Fuchsia */
-    --color-accent-600: hsl(300 80% 50%);
-
-    --color-text-400: hsl(0 0% 100%); /* White text */
-    --color-text-200: hsl(0 0% 85%); /* Light grey text */
-
-    --color-bg-50: hsl(210 20% 10%); /* Very dark blue background */
-    --color-bg-100: hsl(210 20% 15%); /* Darker grey background */
-    --color-bg-200: hsl(210 20% 20%); /* Medium grey */
-
-    --color-gray-50: var(--color-slate-950);
-    --color-gray-100: var(--color-slate-900);
-    --color-gray-200: var(--color-slate-800);
-    --color-gray-300: var(--color-slate-700);
-    --color-gray-400: var(--color-slate-600);
-    --color-gray-500: var(--color-slate-500);
-    --color-gray-600: var(--color-slate-400);
-    --color-gray-700: var(--color-slate-300);
-    --color-gray-800: var(--color-slate-200);
-    --color-gray-900: var(--color-slate-100);
-    --color-gray-950: var(--color-slate-50);
-
-    --color-blaze-50: hsl(0 50% 10%); /* Almost black with a red hue */
-    --color-blaze-100: hsl(0 60% 15%); /* Very dark red */
-    --color-blaze-200: hsl(0 70% 20%); /* Dark red */
-    --color-blaze-300: hsl(5 75% 30%); /* Deep red */
-    --color-blaze-400: hsl(10 80% 40%); /* Fiery red */
-    --color-blaze-500: hsl(15 86% 50%); /* Intense orange-red */
-    --color-blaze-600: hsl(25 90% 60%); /* Strong orange */
-    --color-blaze-700: hsl(30 100% 70%); /* Vibrant orange */
-    --color-blaze-800: hsl(35 100% 80%); /* Soft orange */
-    --color-blaze-900: hsl(45 100% 90%); /* Light yellow */
-    --color-blaze-950: hsl(45 100% 95%); /* Pale yellow */
-  }
 }
