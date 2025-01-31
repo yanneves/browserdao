@@ -25,6 +25,8 @@ jobs:
       - run: npm ci
       - run: npm run build
         env:
+          DATABASE_URL: "{{ secrets.DATABASE_URL }}"
+          PUBLIC_WS_ENDPOINT: "{{ vars.PUBLIC_WS_ENDPOINT }}"
           PUBLIC_FATHOM_KEY: "{{ vars.PUBLIC_FATHOM_KEY }}"
           PUBLIC_DISCORD_INVITE_KEY: "{{ vars.PUBLIC_DISCORD_INVITE_KEY }}"
           CI: true

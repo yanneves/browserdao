@@ -23,6 +23,7 @@
     "@types/eslint": "^9.6.1",
     "eslint": "^9.19.0",
     "eslint-config-prettier": "^10.0.1",
+    "eslint-config-turbo": "^2.3.4",
     "eslint-plugin-svelte": "^3.0.0-next.17",
     "globals": "^15.13.0",
     "prettier": "^3.4.1",
