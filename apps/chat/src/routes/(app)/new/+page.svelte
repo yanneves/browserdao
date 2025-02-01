@@ -174,7 +174,7 @@
       class="hover:ring-blaze-300 bg-bg-100 text-text-400 has-focus:ring-blaze-300 relative flex w-full flex-col justify-between rounded-2xl ring-2 shadow-xs ring-transparent"
     >
       <p
-        class="text-text-400 relative block h-28 max-w-full overflow-hidden overflow-y-auto px-6 py-4 break-words focus:outline-hidden"
+        class="text-text-400 relative block max-h-32 min-h-16 max-w-full overflow-hidden overflow-y-auto px-6 py-4 break-words focus:outline-hidden"
         contenteditable
         bind:textContent={prompt}
       ></p>
