@@ -79,7 +79,6 @@ export function launch(session, prompt, url) {
   feed.reset();
   browser.reset();
 
-  feed.status = "user";
   feed.thoughts.push({ status: "user", message: prompt });
   sendAction("launch", { session, prompt, url });
 }

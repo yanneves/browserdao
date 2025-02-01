@@ -30,7 +30,7 @@
   });
 
   $effect(() => {
-    if (feed.status !== "question") {
+    if (feed.status !== "user") {
       prompting = false;
     }
   });
@@ -58,6 +58,11 @@
   //   agent.abort(session);
   // }
 
+  let browserOpen = $state.raw(true);
+  function toggleBrowser() {
+    browserOpen = !browserOpen;
+  }
+
   // Upcoming features
   let soonAttach = $state.raw(false);
   function attach() {
@@ -72,11 +77,12 @@
   }
 </script>
 
-<article class="flex h-full flex-col gap-y-4 p-4">
+<article class="flex h-full flex-col gap-y-6 p-4">
   <div class="relative flex flex-col gap-y-6">
     <div class="rounded-2xl border border-gray-300">
       <div
         class="bg-bg-100 flex items-center justify-between gap-x-2 rounded-t-2xl border-b border-gray-400 px-2.5 py-2"
+        class:rounded-b-2xl={!browserOpen}
       >
         <aside class="flex justify-around space-x-1">
           <div class="h-2.5 w-2.5 rounded-full bg-gray-500"></div>
@@ -89,17 +95,35 @@
           <i class="iconify lucide--shield size-5 text-gray-500"></i>
           <span class="cursor-default truncate text-gray-500">{form.url}</span>
         </div>
+        <button
+          type="button"
+          class="bg-bg-50 ring-bg-200 hover:ring-blaze-300 focus:ring-blaze-300 flex cursor-pointer items-center rounded-full p-2 ring-2 transition-transform delay-50 duration-150 ease-in-out focus:outline-hidden {browserOpen
+            ? 'absolute right-8 bottom-0 z-10 translate-y-1/2'
+            : 'rotate-180'}"
+          onclick={toggleBrowser}
+        >
+          <span class="sr-only">Toggle browser view</span>
+          <i
+            class="iconify lucide--chevron-up"
+            class:size-5={browserOpen}
+            class:size-4={!browserOpen}
+          ></i>
+        </button>
       </div>
-      <figure class="bg-bg-100 relative grid aspect-video rounded-b-2xl">
-        {#if browser.render}
-          <img
-            alt="Browser viewport displaying the agent's activity"
-            class="h-full w-full rounded-b-2xl object-scale-down"
-            src={browser.render}
-            in:fade={{ duration: 150 }}
-          />
-        {/if}
-      </figure>
+      {#if browserOpen}
+        <figure
+          class="bg-bg-100 relative grid aspect-video rounded-b-2xl transition-transform duration-150 ease-out"
+        >
+          {#if browser.render}
+            <img
+              alt="Browser viewport displaying the agent's activity"
+              class="h-full w-full rounded-b-2xl object-scale-down"
+              src={browser.render}
+              in:fade={{ duration: 150 }}
+            />
+          {/if}
+        </figure>
+      {/if}
     </div>
   </div>
 
@@ -187,12 +211,12 @@
         <button
           type="submit"
           class="bg-blaze-400 flex cursor-pointer items-center rounded-lg p-2 text-black ring-4 ring-transparent hover:ring-black focus:ring-black focus:outline-hidden disabled:cursor-default"
-          disabled={prompting || feed.status !== "question"}
+          disabled={launching || prompting || feed.status !== "question"}
         >
           <i
             class="iconify lucide--send size-6"
-            class:lucide--send={!prompting}
-            class:svg-spinners--gooey-balls-1={prompting}
+            class:lucide--send={!launching && !prompting}
+            class:svg-spinners--gooey-balls-1={launching || prompting}
           ></i>
           <span class="sr-only">Go</span>
         </button>
