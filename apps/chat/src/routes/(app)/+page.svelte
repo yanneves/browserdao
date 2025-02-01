@@ -75,12 +75,12 @@
         >
       {/if}
       <p
-        class="text-text-400 relative block max-h-64 max-w-full overflow-hidden overflow-y-auto break-words transition-[min-height] duration-100 ease-out focus:outline-hidden"
+        class="text-text-400 relative block max-h-48 max-w-full overflow-hidden overflow-y-auto break-words transition-[min-height] duration-100 ease-out focus:outline-hidden"
         class:h-0={!expanded}
         class:min-h-0={!expanded}
-        class:min-h-32={expanded}
+        class:min-h-24={expanded}
         class:px-6={expanded}
-        class:py-4={expanded}
+        class:pt-4={expanded}
         contenteditable
         bind:textContent={prompt}
         bind:this={input}
