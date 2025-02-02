@@ -588,6 +588,8 @@ export default class Agent extends EventEmitter {
       content: [{ type: "text", text: prompt }],
     });
 
+    this.dispatch("prompt", { text: prompt });
+
     await this.step(page);
   }
 

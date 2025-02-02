@@ -94,6 +94,24 @@ server.on("connection", (stream) => {
     }
   });
 
+  agent.on("prompt", async ({ meta, data }) => {
+    const payload = { meta: {}, data };
+    const message = { type: "prompt", payload };
+
+    try {
+      // Save event to replay session
+      await db.query(
+        `
+          INSERT INTO replays_events (id, replay, payload)
+          VALUES ($1::uuid, $2::uuid, $3::jsonb);
+        `,
+        [uuidv7(), meta.replay, message],
+      );
+    } catch (err) {
+      console.error("Error saving replay event: ", err);
+    }
+  });
+
   agent.on("agent", async ({ meta, data }) => {
     let balance = 0;
 
