@@ -10,6 +10,7 @@
 
   let chat = $state(null);
 
+  let submit = $state(null);
   let prompt = $state.raw("");
   let launching = $state.raw(true);
   let prompting = $state.raw(true);
@@ -57,6 +58,21 @@
   //   event?.preventDefault();
   //   agent.abort(session);
   // }
+
+  let lastTime = 0;
+  const throttle = 300;
+  function enter(event) {
+    const now = Date.now();
+
+    if (!event.shiftKey && event.key === "Enter") {
+      event.preventDefault();
+
+      if (now - lastTime > throttle) {
+        submit?.click();
+        lastTime = now;
+      }
+    }
+  }
 
   let browserOpen = $state.raw(true);
   function toggleBrowser() {
@@ -169,7 +185,13 @@
     onsubmit={send}
     autocomplete="off"
   >
-    <textarea name="prompt" class="hidden" value={prompt}></textarea>
+    <textarea
+      name="prompt"
+      class="sr-only"
+      tabindex="-1"
+      value={prompt}
+      required
+    ></textarea>
     <div
       class="hover:ring-blaze-300 bg-bg-100 text-text-400 has-focus:ring-blaze-300 relative flex w-full flex-col justify-between rounded-2xl ring-2 shadow-xs ring-transparent"
     >
@@ -177,6 +199,7 @@
         class="text-text-400 relative block max-h-32 min-h-16 max-w-full overflow-hidden overflow-y-auto px-6 py-4 break-words focus:outline-hidden"
         contenteditable
         bind:textContent={prompt}
+        onkeydown={enter}
       ></p>
       <div class="flex items-center justify-end gap-x-2 px-2.5 py-2">
         <button
@@ -189,8 +212,8 @@
             class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 transition-opacity"
             class:opacity-100={soonAttach}>Soon&trade;</small
           >
-          <i class="iconify lucide--paperclip size-6"></i>
-          <span class="sr-only">Add attachment</span>
+          <i class="iconify lucide--circle-help size-6"></i>
+          <span class="sr-only">Get help</span>
         </button>
         <p class="text-sm text-gray-400" in:fade={{ duration: 150 }}>
           {numberStyle.format(account.balance)} credits
@@ -212,6 +235,7 @@
           type="submit"
           class="bg-blaze-400 flex cursor-pointer items-center rounded-lg p-2 text-black ring-4 ring-transparent hover:ring-black focus:ring-black focus:outline-hidden disabled:cursor-default"
           disabled={launching || prompting || feed.status !== "question"}
+          bind:this={submit}
         >
           <i
             class="iconify lucide--send size-6"

@@ -8,12 +8,28 @@
   account.balance = data.balance;
 
   let input = $state(null);
+  let submit = $state(null);
   let prompt = $state.raw("");
 
   let expanded = $state.raw(false);
   function expand() {
     expanded = true;
     requestAnimationFrame(() => input?.focus());
+  }
+
+  let lastTime = 0;
+  const throttle = 300;
+  function enter(event) {
+    const now = Date.now();
+
+    if (!event.shiftKey && event.key === "Enter") {
+      event.preventDefault();
+
+      if (now - lastTime > throttle) {
+        submit?.click();
+        lastTime = now;
+      }
+    }
   }
 
   // Upcoming features
@@ -60,7 +76,13 @@
       placeholder="Enter a link"
       required
     />
-    <textarea name="prompt" class="hidden" value={prompt}></textarea>
+    <textarea
+      name="prompt"
+      class="sr-only"
+      tabindex="-1"
+      value={prompt}
+      required
+    ></textarea>
     <div
       class="hover:ring-blaze-300 bg-bg-100 text-text-400 has-focus:ring-blaze-300 relative flex w-full flex-col justify-between ring-2 shadow-xs ring-transparent"
       class:rounded-full={!expanded}
@@ -84,6 +106,7 @@
         contenteditable
         bind:textContent={prompt}
         bind:this={input}
+        onkeydown={enter}
       ></p>
       <div
         class="flex items-center justify-end gap-x-2 px-2.5 py-2"
@@ -103,8 +126,8 @@
               class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 transition-opacity"
               class:opacity-100={soonAttach}>Soon&trade;</small
             >
-            <i class="iconify lucide--paperclip size-6"></i>
-            <span class="sr-only">Add attachment</span>
+            <i class="iconify lucide--circle-help size-6"></i>
+            <span class="sr-only">Get help</span>
           </button>
           <p class="text-sm text-gray-400" in:fade={{ duration: 150 }}>
             {numberStyle.format(account.balance)} credits
@@ -128,6 +151,7 @@
           class="bg-blaze-400 flex cursor-pointer items-center p-2 text-black ring-4 ring-transparent hover:ring-black focus:ring-black focus:outline-hidden"
           class:rounded-full={!expanded}
           class:rounded-lg={expanded}
+          bind:this={submit}
         >
           <i class="iconify lucide--send size-6"></i>
           <span class="sr-only">Go</span>
