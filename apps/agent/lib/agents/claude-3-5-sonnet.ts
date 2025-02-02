@@ -101,7 +101,7 @@ export default class Agent extends EventEmitter {
 
   private _session: string = "";
   private _replay: string = "";
-  private _aborted = false;
+  private _interrupted = false;
 
   private _messages: Anthropic.Beta.BetaMessageParam[] = [];
 
@@ -226,8 +226,8 @@ export default class Agent extends EventEmitter {
         );
       }
 
-      if (this._aborted) {
-        console.warn("Launch aborted mid-flight");
+      if (this._interrupted) {
+        console.warn("Agent interrupted mid-flight");
         return;
       }
 
@@ -581,7 +581,14 @@ export default class Agent extends EventEmitter {
   }
 
   async prompt(prompt: string) {
+    this._interrupted = false;
+
     const page = await this.ready();
+
+    if (this._interrupted) {
+      console.info("Prompt interrupted");
+      return;
+    }
 
     this._messages.push({
       role: "user",
@@ -601,17 +608,17 @@ export default class Agent extends EventEmitter {
     // TODO: move session and replay to constructor
     this._session = session;
     this._replay = replay;
-    this._aborted = false;
+    this._interrupted = false;
 
     const page = await this.ready();
 
     await page.goto(url, { waitUntil: "domcontentloaded" });
 
-    // TODO: build a smarter delay / wait logic that checks for abort command
+    // TODO: build a smarter delay / wait logic that checks for interrupt command
     await delay(2000);
 
-    if (this._aborted) {
-      console.info("Launch aborted");
+    if (this._interrupted) {
+      console.info("Launch interrupted");
       return;
     }
 
@@ -637,13 +644,15 @@ export default class Agent extends EventEmitter {
     return this.step(page);
   }
 
-  async abort() {
-    await this.terminate();
-    await this.newPage();
+  async interrupt() {
+    this._interrupted = true;
   }
 
   async terminate() {
-    this._aborted = true;
+    this._interrupted = true;
+    this._replay = "";
+    this._messages = [];
+
     await this._browserContext?.close();
     await this._browser?.close();
 

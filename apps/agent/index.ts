@@ -82,8 +82,8 @@ server.on("connection", (stream) => {
           break;
         }
 
-        case "abort":
-          agent.abort();
+        case "interrupt":
+          agent.interrupt();
           break;
 
         default:
