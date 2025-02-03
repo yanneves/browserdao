@@ -45,4 +45,29 @@
   --color-blaze-800: hsl(0 70% 20%); /* Dark red */
   --color-blaze-900: hsl(0 60% 15%); /* Very dark red */
   --color-blaze-950: hsl(0 50% 10%); /* Almost black with a red hue */
+
+  /* Animation */
+  --animate-modal: modal 0.15s ease-in;
+  @keyframes modal {
+    0% {
+      opacity: 0;
+      transform: scaleX(0.875) translateY(0.875rem);
+    }
+    100% {
+      opacity: 100;
+      transform: scaleX(1) translateY(0);
+    }
+  }
+
+  --animate-slide-in-bottom: slide-in-bottom 0.15s ease-in;
+  @keyframes slide-in-bottom {
+    0% {
+      opacity: 0;
+      transform: translateY(0.875rem);
+    }
+    100% {
+      opacity: 100;
+      transform: translateY(0);
+    }
+  }
 }

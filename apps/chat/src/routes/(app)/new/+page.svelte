@@ -3,16 +3,18 @@
   import account from "$lib/stores/account.svelte.js";
   import browser from "$lib/stores/browser.svelte.js";
   import feed from "$lib/stores/feed.svelte.js";
+  import { onMount } from "svelte";
   import { fade } from "svelte/transition";
 
   const { data, form } = $props();
   const { session } = data;
 
+  const numberStyle = new Intl.NumberFormat();
+
   let chat = $state(null);
 
   let submit = $state(null);
   let prompt = $state.raw("");
-  let launching = $state.raw(true);
   let prompting = $state.raw(true);
 
   $effect(() => {
@@ -25,21 +27,10 @@
   });
 
   $effect(() => {
-    if (feed.status !== "idle") {
-      launching = false;
-    }
-  });
-
-  $effect(() => {
     if (feed.status !== "user") {
       prompting = false;
     }
   });
-
-  const numberStyle = new Intl.NumberFormat();
-  account.balance = data.balance;
-
-  agent.launch(session, form.prompt, form.url);
 
   function send(event) {
     event.preventDefault();
@@ -53,11 +44,10 @@
     prompt = "";
   }
 
-  // TODO: hook up to stop button
-  // function cancel(event) {
-  //   event?.preventDefault();
-  //   agent.abort(session);
-  // }
+  function cancel(event) {
+    event?.preventDefault();
+    agent.interrupt(session);
+  }
 
   let lastTime = 0;
   const throttle = 300;
@@ -91,6 +81,11 @@
     soonDictate = true;
     setTimeout(() => (soonDictate = false), 1000);
   }
+
+  onMount(() => {
+    account.balance = data.balance;
+    agent.launch(session, form.prompt, form.url);
+  });
 </script>
 
 <article class="flex h-full flex-col gap-y-6 p-4">
@@ -166,7 +161,7 @@
         </p>
       </li>
     {/each}
-    {#if launching || feed.status === "thinking"}
+    {#if feed.status === "thinking"}
       <li class="relative flex gap-x-2">
         <div class="relative flex size-6 shrink-0 items-center justify-center">
           <i class="iconify lucide--badge size-2 text-gray-300"></i>
@@ -179,6 +174,21 @@
       </li>
     {/if}
   </ul>
+
+  {#if feed.status !== "idle"}
+    <section
+      class="motion-safe:animate-slide-in-bottom relative -my-2 flex justify-end"
+    >
+      <button
+        type="button"
+        class="ring-bg-200 hover:text-blaze-700 hover:ring-blaze-800 focus:text-blaze-700 focus:ring-blaze-800 flex cursor-pointer items-center gap-x-2 rounded-full px-4 py-2 text-sm text-gray-400 ring-2 focus:outline-hidden"
+        onclick={cancel}
+      >
+        <i class="iconify material-symbols--square-rounded size-3"></i>
+        Stop
+      </button>
+    </section>
+  {/if}
 
   <form
     class="relative mt-auto flex min-w-0 flex-col items-center gap-y-4"
@@ -234,13 +244,13 @@
         <button
           type="submit"
           class="bg-blaze-400 flex cursor-pointer items-center rounded-lg p-2 text-black ring-4 ring-transparent hover:ring-black focus:ring-black focus:outline-hidden disabled:cursor-default"
-          disabled={launching || prompting || feed.status !== "question"}
+          disabled={prompting || feed.status !== "idle"}
           bind:this={submit}
         >
           <i
             class="iconify lucide--send size-6"
-            class:lucide--send={!launching && !prompting}
-            class:svg-spinners--gooey-balls-1={launching || prompting}
+            class:lucide--send={!prompting}
+            class:svg-spinners--gooey-balls-1={prompting}
           ></i>
           <span class="sr-only">Go</span>
         </button>

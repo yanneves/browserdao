@@ -31,7 +31,7 @@ const dataHandler = (type, payload) => {
       if (status === "live") {
         thinkingTimeout = setTimeout(() => (feed.status = "thinking"), 2000);
       } else {
-        thinkingTimeout = setTimeout(() => (feed.status = "question"), 300);
+        thinkingTimeout = setTimeout(() => (feed.status = "idle"), 300);
       }
 
       feed.status = status;
@@ -89,11 +89,11 @@ export function prompt(session, prompt) {
   sendAction("prompt", { session, prompt });
 }
 
-export function abort(session) {
+export function interrupt(session) {
   clearTimeout(thinkingTimeout);
   feed.status = "idle";
 
-  sendAction("abort", { session });
+  sendAction("interrupt", { session });
 }
 
-export default { launch, prompt, abort };
+export default { launch, prompt, interrupt };
