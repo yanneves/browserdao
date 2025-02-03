@@ -149,6 +149,7 @@ export default class Agent extends EventEmitter {
       },
       geolocation: { latitude: 51.509865, longitude: -0.118092 }, // London, UK
       permissions: ["geolocation"],
+      reducedMotion: "reduce",
     });
 
     return (this._page = await this._browserContext.newPage());
