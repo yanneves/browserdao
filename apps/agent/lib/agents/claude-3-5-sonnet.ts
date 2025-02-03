@@ -130,9 +130,17 @@ export default class Agent extends EventEmitter {
   }
 
   async newPage() {
+    this._browser?.removeAllListeners("disconnected", {
+      behavior: "ignoreErrors",
+    });
+
     this._browser = await (process.env.BROWSER_WS_URL
       ? chromium.connect(process.env.BROWSER_WS_URL)
       : chromium.launch());
+
+    this._browser.on("disconnected", () => {
+      console.info("Browser disconnected");
+    });
 
     this._browserContext = await this._browser.newContext({
       viewport: {
