@@ -1,5 +1,5 @@
 <script>
-  import "@fontsource/inter";
+  import "@fontsource-variable/inter";
   import trackEvent from "$lib/utils/trackEvent";
   import CertificateAuthority from "../lib/components/CertificateAuthority.svelte";
 </script>
