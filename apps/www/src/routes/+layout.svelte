@@ -4,7 +4,6 @@
   import { PUBLIC_FATHOM_KEY } from "$env/static/public";
   import FilmGrain from "../lib/components/FilmGrain.svelte";
 
-  // eslint-disable-next-line svelte/valid-prop-names-in-kit-pages
   const { children } = $props();
 </script>
 

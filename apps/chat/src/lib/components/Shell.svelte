@@ -26,7 +26,7 @@
 
 {#snippet sidebar()}
   <div
-    class="bg-bg-50/20 ring-bg-50 flex grow flex-col gap-y-5 overflow-y-auto px-6 pb-4 ring-1 backdrop-blur lg:bg-transparent lg:ring-0 lg:backdrop-blur-none"
+    class="bg-bg-50/20 ring-bg-50 flex grow flex-col gap-y-5 overflow-y-hidden ring-1 backdrop-blur-lg lg:bg-transparent lg:ring-0 lg:backdrop-blur-none"
   >
     <div class="flex h-16 shrink-0 items-center justify-end">
       {#if navDrawerOpen}
@@ -40,7 +40,7 @@
         </button>
       {/if}
     </div>
-    <nav class="flex flex-1 flex-col">
+    <nav class="flex flex-1 flex-col overflow-y-hidden">
       {@render nav()}
     </nav>
   </div>
@@ -52,7 +52,7 @@
     <div class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
       <div class="fixed inset-0 flex">
         <div
-          class="relative mr-8 flex w-full max-w-sm flex-1"
+          class="relative mr-8 flex w-full max-w-xs flex-1 sm:max-w-sm"
           transition:drawer
         >
           {@render sidebar()}

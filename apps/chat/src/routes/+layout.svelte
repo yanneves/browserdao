@@ -2,7 +2,6 @@
   import "../app.css";
   import "@fontsource-variable/inter";
 
-  // eslint-disable-next-line svelte/valid-prop-names-in-kit-pages
   let { children } = $props();
 </script>
 
