@@ -1,8 +1,8 @@
 import { error, redirect } from "@sveltejs/kit";
-import { DATABASE_URL } from "$env/static/private";
-import pg from "pg";
+import db from "$lib/server/database";
 import { v7 as uuidv7 } from "uuid";
 
+/** @type {import('./$types').PageServerLoad} */
 export const load = async ({ params, cookies }) => {
   const { key } = params;
 
@@ -13,8 +13,7 @@ export const load = async ({ params, cookies }) => {
   }
 
   // Connect database and begin transaction
-  const client = new pg.Client(DATABASE_URL);
-  await client.connect();
+  const client = await client.connect();
   await client.query("BEGIN");
 
   let res;
