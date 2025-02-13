@@ -1,4 +1,5 @@
 <script>
+  import { page } from "$app/state";
   import Shell from "$lib/components/Shell.svelte";
   import { onMount } from "svelte";
 
@@ -89,7 +90,8 @@
             <li class="px-4">
               <a
                 href="/replay/{id}"
-                class="text-text-200 focus:ring-blaze-300 hover:bg-bg-100 focus:bg-bg-100 flex h-32 gap-x-2 rounded-2xl p-2 text-sm font-light focus:ring focus:outline-hidden"
+                aria-current={page.params?.id === id ? "page" : null}
+                class="text-text-200 focus:ring-blaze-300 hover:bg-bg-100 focus:bg-bg-100 aria-[current=page]:bg-bg-100 flex h-32 gap-x-2 rounded-2xl p-2 text-sm font-light focus:ring focus:outline-hidden"
               >
                 <img
                   src="https://screenshotof.com/{hostname}"
@@ -120,7 +122,8 @@
             <li class="px-4">
               <a
                 href="/replay/{id}"
-                class="text-text-200 focus:ring-blaze-300 hover:bg-bg-100 focus:bg-bg-100 block rounded-2xl p-2 text-sm font-light focus:ring focus:outline-hidden"
+                aria-current={page.params?.id === id ? "page" : null}
+                class="text-text-200 focus:ring-blaze-300 hover:bg-bg-100 focus:bg-bg-100 aria-[current=page]:bg-bg-100 block rounded-2xl p-2 text-sm font-light focus:ring focus:outline-hidden"
               >
                 <span class="flex justify-between gap-x-1">
                   <span class="text-blaze-300 truncate">{url}</span>
