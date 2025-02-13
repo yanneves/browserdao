@@ -3,7 +3,7 @@
   import { fade } from "svelte/transition";
 
   const { data } = $props();
-  let render = $state.raw("");
+  let render = $state.raw(null);
   let events = $state.raw([]);
   let chat = $state(null);
 
@@ -13,13 +13,13 @@
   }
 
   afterNavigate(async () => {
-    render = "";
+    render = null;
     events = [];
 
     const res = await fetch(`/api/replay/${data?.replay.id}/events`);
     const json = await res.json();
 
-    render = json.render ? `data:image/png;base64,${json.render}` : "";
+    render = json.render;
     events = json.events;
 
     chat?.scrollTo(0, chat?.scrollHeight);
@@ -87,16 +87,16 @@
         {data?.replay.prompt}
       </p>
     </li>
-    {#each events as { id, payload } (id)}
+    {#each events as { id, type, payload } (id)}
       <li class="relative flex gap-x-2">
-        {#if payload.type === "prompt"}
+        {#if type === "prompt"}
           <div
             class="relative flex size-6 shrink-0 items-center justify-center"
           >
             <i class="iconify lucide--terminal text-blaze-400 size-4"></i>
           </div>
           <p class="overflow-hidden px-3 text-sm leading-6 break-words">
-            {payload.payload.data.text}
+            {payload.data.text}
           </p>
         {:else}
           <div
@@ -104,22 +104,19 @@
           >
             <i
               class="iconify"
-              class:size-4={payload.payload.data.status !== "live"}
-              class:text-blaze-400={payload.payload.data.status !== "live"}
-              class:size-2={payload.payload.data.status === "live"}
-              class:text-gray-300={payload.payload.data.status === "live"}
-              class:lucide--badge={payload.payload.data.status === "live"}
-              class:lucide--badge-help={payload.payload.data.status ===
-                "question"}
-              class:lucide--badge-check={payload.payload.data.status ===
-                "complete"}
-              class:lucide--badge-alert={payload.payload.data.status ===
-                "exhausted"}
-              class:lucide--badge-x={payload.payload.data.status === "quit"}
+              class:size-4={payload.data.status !== "live"}
+              class:text-blaze-400={payload.data.status !== "live"}
+              class:size-2={payload.data.status === "live"}
+              class:text-gray-300={payload.data.status === "live"}
+              class:lucide--badge={payload.data.status === "live"}
+              class:lucide--badge-help={payload.data.status === "question"}
+              class:lucide--badge-check={payload.data.status === "complete"}
+              class:lucide--badge-alert={payload.data.status === "exhausted"}
+              class:lucide--badge-x={payload.data.status === "quit"}
             ></i>
           </div>
           <p class="overflow-hidden px-3 text-sm leading-6 break-words">
-            {payload.payload.data.thoughts}
+            {payload.data.thoughts}
           </p>
         {/if}
       </li>
