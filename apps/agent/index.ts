@@ -95,17 +95,17 @@ server.on("connection", (stream) => {
   });
 
   agent.on("prompt", async ({ meta, data }) => {
+    const type = "prompt";
     const payload = { meta: {}, data };
-    const message = { type: "prompt", payload };
 
     try {
       // Save event to replay session
       await db.query(
         `
           INSERT INTO replays_events (id, replay, payload)
-          VALUES ($1::uuid, $2::uuid, $3::jsonb);
+          VALUES ($1::uuid, $2::uuid, $3::text, $4::jsonb);
         `,
-        [uuidv7(), meta.replay, message],
+        [uuidv7(), meta.replay, type, payload],
       );
     } catch (err) {
       console.error("Error saving replay event: ", err);
@@ -133,19 +133,19 @@ server.on("connection", (stream) => {
       console.error("Error updating account balance: ", err);
     }
 
+    const type = "agent";
     const payload = { meta: { balance }, data };
-    const message = { type: "agent", payload };
 
-    stream.send(JSON.stringify(message));
+    stream.send(JSON.stringify({ type, payload }));
 
     try {
       // Save event to replay session
       await db.query(
         `
-          INSERT INTO replays_events (id, replay, payload)
-          VALUES ($1::uuid, $2::uuid, $3::jsonb);
+          INSERT INTO replays_events (id, replay, type, payload)
+          VALUES ($1::uuid, $2::uuid, $3::text, $4::jsonb);
         `,
-        [uuidv7(), meta.replay, message],
+        [uuidv7(), meta.replay, type, payload],
       );
     } catch (err) {
       console.error("Error saving replay event: ", err);
@@ -153,18 +153,19 @@ server.on("connection", (stream) => {
   });
 
   agent.on("render", async ({ meta, data }) => {
-    const message = { type: "render", payload: data };
+    const type = "render";
+    const payload = { data };
 
-    stream.send(JSON.stringify(message));
+    stream.send(JSON.stringify({ type, payload }));
 
     try {
       // Save event to replay session
       await db.query(
         `
-          INSERT INTO replays_events (id, replay, payload)
-          VALUES ($1::uuid, $2::uuid, $3::jsonb);
+          INSERT INTO replays_events (id, replay, type, payload)
+          VALUES ($1::uuid, $2::uuid, $3::text, $4::jsonb);
         `,
-        [uuidv7(), meta.replay, message],
+        [uuidv7(), meta.replay, type, payload],
       );
     } catch (err) {
       console.error("Error saving replay event: ", err);
