@@ -102,8 +102,8 @@ server.on("connection", (stream) => {
       // Save event to replay session
       await db.query(
         `
-          INSERT INTO replays_events (id, replay, payload)
-          VALUES ($1::uuid, $2::uuid, $3::text, $4::jsonb);
+          INSERT INTO replays_events (id, replay, type, payload)
+          VALUES ($1::uuid, $2::uuid, $3::replays_events_type, $4::jsonb);
         `,
         [uuidv7(), meta.replay, type, payload],
       );
@@ -143,7 +143,7 @@ server.on("connection", (stream) => {
       await db.query(
         `
           INSERT INTO replays_events (id, replay, type, payload)
-          VALUES ($1::uuid, $2::uuid, $3::text, $4::jsonb);
+          VALUES ($1::uuid, $2::uuid, $3::replays_events_type, $4::jsonb);
         `,
         [uuidv7(), meta.replay, type, payload],
       );
@@ -163,7 +163,7 @@ server.on("connection", (stream) => {
       await db.query(
         `
           INSERT INTO replays_events (id, replay, type, payload)
-          VALUES ($1::uuid, $2::uuid, $3::text, $4::jsonb);
+          VALUES ($1::uuid, $2::uuid, $3::replays_events_type, $4::jsonb);
         `,
         [uuidv7(), meta.replay, type, payload],
       );
