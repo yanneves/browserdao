@@ -15,7 +15,8 @@
   afterNavigate(async () => {
     const res = await fetch(`/api/replay/${data?.replay.id}/events`);
     const json = await res.json();
-    render = `data:image/png;base64,${json.render}`;
+
+    render = json.render ? `data:image/png;base64,${json.render}` : "";
     events = json.events;
 
     chat?.scrollTo(0, chat?.scrollHeight);
