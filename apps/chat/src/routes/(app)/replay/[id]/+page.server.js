@@ -19,7 +19,8 @@ export const load = async ({ params, cookies }) => {
         FROM replays
         WHERE account = $1::uuid
         AND id = $2::uuid
-        ORDER BY id DESC;
+        ORDER BY id DESC
+        LIMIT 1;
       `,
       [session, id],
     );
