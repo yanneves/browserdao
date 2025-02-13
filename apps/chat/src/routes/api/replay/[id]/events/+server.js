@@ -10,14 +10,14 @@ async function getRender(session, id) {
         INNER JOIN replays r ON re.replay = r.id
         WHERE r.account = $1::uuid
         AND re.replay = $2::uuid
-        AND re.payload->>'type' = 'render'
+        AND re.type = 'render'
         ORDER BY re.id DESC
         LIMIT 1;
       `,
       [session, id],
     );
 
-    return res.rows[0]?.payload.payload ?? null;
+    return res.rows[0]?.payload.data.src ?? null;
   } catch (err) {
     console.error("Error querying database: ", err);
     throw error(500, "Error loading replay render");
@@ -28,12 +28,12 @@ async function getEvents(session, id) {
   try {
     const res = await db.query(
       `
-        SELECT re.id, re.payload
+        SELECT re.id, re.type, re.payload
         FROM replays_events re
         INNER JOIN replays r ON re.replay = r.id
         WHERE r.account = $1::uuid
         AND re.replay = $2::uuid
-        AND re.payload->>'type' != 'render';
+        AND re.type != 'render';
       `,
       [session, id],
     );
