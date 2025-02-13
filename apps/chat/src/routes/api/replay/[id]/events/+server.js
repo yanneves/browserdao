@@ -17,7 +17,7 @@ async function getRender(session, id) {
       [session, id],
     );
 
-    return res.rows?.[0].payload.payload;
+    return res.rows[0]?.payload.payload ?? null;
   } catch (err) {
     console.error("Error querying database: ", err);
     throw error(500, "Error loading replay render");
