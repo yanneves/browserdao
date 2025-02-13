@@ -3,12 +3,11 @@ CREATE TYPE replays_events_type AS ENUM ('agent', 'prompt', 'render');
 --
 -- Step 2: Alter the `type` column to use the ENUM
 ALTER TABLE replays_events
-ALTER COLUMN type
-SET DATA TYPE replays_events_type USING type::replays_events_type;
+ADD COLUMN type replays_events_type;
 --
 -- Step 3: Populate `type` column from `payload`
 UPDATE replays_events
-SET type = payload->>'type'::replays_events_type;
+SET type = (payload->>'type')::replays_events_type;
 --
 -- Step 4: Remove `type` field from `payload`
 UPDATE replays_events
