@@ -44,9 +44,18 @@
         created = rtf.format(-Math.round(diff / YEAR_MS), "years");
       }
 
-      // Shorten url for display
-      const { pathname, hostname } = new URL(row.url);
-      const url = pathname.length > 1 ? hostname + pathname : hostname;
+      let url = row.url;
+      let hostname = row.url;
+      try {
+        // Shorten url for display
+        const parsed = new URL(row.url);
+        const { pathname } = parsed;
+
+        hostname = parsed.hostname;
+        url = pathname.length > 1 ? hostname + pathname : hostname;
+      } catch (err) {
+        console.warn(err);
+      }
 
       return { id, prompt, url, hostname, date, created };
     });
