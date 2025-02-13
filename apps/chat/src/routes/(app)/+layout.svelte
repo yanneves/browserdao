@@ -16,10 +16,10 @@
 
   onMount(async () => {
     const res = await fetch("/api/replays");
-    const data = await res.json();
+    const json = await res.json();
 
     const now = Date.now();
-    replays = data.replays?.map((row) => {
+    replays = json.replays?.map((row) => {
       const { id, prompt } = row;
 
       // Calculate relative time to display
@@ -76,7 +76,7 @@
               Start new chat
             </a>
           </li>
-          {#each replays?.slice(0, 20) as { id, prompt, url, hostname, date, created }}
+          {#each replays?.slice(0, 20) as { id, prompt, url, hostname, date, created } (id)}
             <li class="px-4">
               <a
                 href="/replay/{id}"
@@ -107,7 +107,7 @@
               </a>
             </li>
           {/each}
-          {#each replays?.slice(20) as { id, prompt, url, date, created }}
+          {#each replays?.slice(20) as { id, prompt, url, date, created } (id)}
             <li class="px-4">
               <a
                 href="/replay/{id}"
