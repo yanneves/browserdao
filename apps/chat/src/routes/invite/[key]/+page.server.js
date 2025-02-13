@@ -13,7 +13,7 @@ export const load = async ({ params, cookies }) => {
   }
 
   // Connect database and begin transaction
-  const client = await client.connect();
+  const client = await db.connect();
   await client.query("BEGIN");
 
   let res;

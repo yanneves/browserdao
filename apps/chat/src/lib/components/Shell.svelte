@@ -86,7 +86,7 @@
       {@render header()}
     </div>
 
-    <main class="mx-auto -mt-16 h-full max-w-sm">
+    <main class="mx-auto -mt-16 h-full max-w-sm pt-16">
       {@render main()}
     </main>
   </div>
