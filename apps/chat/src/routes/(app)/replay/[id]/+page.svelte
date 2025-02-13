@@ -13,6 +13,9 @@
   }
 
   afterNavigate(async () => {
+    render = "";
+    events = [];
+
     const res = await fetch(`/api/replay/${data?.replay.id}/events`);
     const json = await res.json();
 
