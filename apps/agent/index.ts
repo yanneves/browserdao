@@ -2,6 +2,7 @@ import { v7 as uuidv7 } from "uuid";
 import { WebSocketServer } from "ws";
 import Agent from "./lib/agent.ts";
 import db from "./lib/database.ts";
+import { uploadRender } from "./lib/storage.ts";
 
 const { PORT = 8080 } = process.env;
 
@@ -152,20 +153,24 @@ server.on("connection", (stream) => {
     }
   });
 
-  agent.on("render", async ({ meta, data }) => {
+  agent.on("render", async ({ meta, data: { buffer, base64string } }) => {
     const type = "render";
-    const payload = { data };
 
-    stream.send(JSON.stringify({ type, payload }));
+    stream.send(JSON.stringify({ type, payload: { base64string } }));
 
     try {
+      // Upload render to object storage
+      const key = uuidv7();
+      const src = await uploadRender(key, buffer);
+      const payload = { data: { src } };
+
       // Save event to replay session
       await db.query(
         `
           INSERT INTO replays_events (id, replay, type, payload)
           VALUES ($1::uuid, $2::uuid, $3::replays_events_type, $4::jsonb);
         `,
-        [uuidv7(), meta.replay, type, payload],
+        [key, meta.replay, type, payload],
       );
     } catch (err) {
       console.error("Error saving replay event: ", err);

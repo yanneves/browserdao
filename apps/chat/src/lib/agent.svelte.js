@@ -40,7 +40,7 @@ const dataHandler = (type, payload) => {
       break;
     }
     case "render": {
-      browser.render = `data:image/png;base64,${payload.data}`;
+      browser.render = `data:image/png;base64,${payload.base64string}`;
       break;
     }
     default:

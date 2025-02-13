@@ -185,10 +185,10 @@ export default class Agent extends EventEmitter {
       .resize(resolution.agent.width, resolution.agent.height)
       .toBuffer();
 
-    const screenshot = buffer.toString("base64");
-    this.dispatch("render", screenshot);
+    const base64string = buffer.toString("base64");
+    this.dispatch("render", { buffer, base64string });
 
-    return screenshot;
+    return base64string;
   }
 
   async step(page: Page, count = 1): Promise<void> {
