@@ -4,6 +4,8 @@
 @plugin '../tailwind.icons.js';
 
 @theme {
+  --font-logo: "Inter Variable", sans-serif;
+
   --color-blaze-50: hsl(45 100% 95%);
   --color-blaze-100: hsl(45 100% 90%);
   --color-blaze-200: hsl(35 100% 80%);

@@ -9,7 +9,7 @@
 >
   <CertificateAuthority mint="AYHXXJhuQ7m26QjSJwgynfDcy4BVDfxG4zjATmYXjswk" />
   <mark
-    class="from-blaze-300 to-blaze-500 bg-transparent bg-linear-to-r bg-clip-text p-4 font-[Inter] font-semibold text-transparent select-none"
+    class="from-blaze-300 to-blaze-500 font-logo bg-transparent bg-linear-to-r bg-clip-text p-4 font-semibold text-transparent select-none"
     style="font-size: 25vmin; line-height: 1;"
   >
     WW<br class="sm:hidden" />W .
