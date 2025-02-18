@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.36.3",
-    "@aws-sdk/client-s3": "^3.749.0",
+    "@aws-sdk/client-s3": "^3.750.0",
     "openai": "^4.85.1",
     "pg": "^8.13.3",
     "playwright": "~1.50.1",
