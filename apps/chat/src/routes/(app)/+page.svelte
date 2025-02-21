@@ -72,7 +72,7 @@
     <input
       type="url"
       name="url"
-      class="bg-bg-100 text-text-400 hover:ring-blaze-300 focus:ring-blaze-300 w-full rounded-full border-none px-6 py-4 ring-2 shadow-xs ring-transparent placeholder:text-gray-400 focus:outline-hidden"
+      class="bg-bg-100 text-text-400 hover:ring-blaze-300 focus:ring-blaze-300 w-full rounded-full border-none px-6 py-4 shadow-xs ring-2 ring-transparent placeholder:text-gray-400 focus:outline-hidden"
       placeholder="Enter a link"
       required
     />
@@ -84,7 +84,7 @@
       required
     ></textarea>
     <div
-      class="hover:ring-blaze-300 bg-bg-100 text-text-400 has-focus:ring-blaze-300 relative flex w-full flex-col justify-between ring-2 shadow-xs ring-transparent"
+      class="hover:ring-blaze-300 bg-bg-100 text-text-400 has-focus:ring-blaze-300 relative flex w-full flex-col justify-between shadow-xs ring-2 ring-transparent"
       class:rounded-full={!expanded}
       class:rounded-2xl={expanded}
     >
