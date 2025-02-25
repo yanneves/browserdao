@@ -21,7 +21,7 @@
     "@iconify-json/svg-spinners": "^1.2.2",
     "@iconify/tailwind": "^1.2.0",
     "@sveltejs/adapter-vercel": "^5.6.3",
-    "@sveltejs/kit": "^2.17.2",
+    "@sveltejs/kit": "^2.17.3",
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/postcss": "^4.0.8",
@@ -29,7 +29,7 @@
     "@types/eslint": "^9.6.1",
     "eslint": "^9.21.0",
     "eslint-config-prettier": "^10.0.1",
-    "eslint-config-turbo": "^2.4.2",
+    "eslint-config-turbo": "^2.4.3",
     "eslint-plugin-svelte": "^3.0.0-next.18",
     "globals": "^16.0.0",
     "partysocket": "^1.0.3",
@@ -38,7 +38,7 @@
     "prettier-plugin-tailwindcss": "^0.6.11",
     "svelte": "^5.20.4",
     "tailwindcss": "^4.0.3",
-    "vite": "^6.1.1"
+    "vite": "^6.2.0"
   },
   "engines": {
     "node": "22.x"
