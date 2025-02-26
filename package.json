@@ -28,6 +28,6 @@
   },
   "packageManager": "npm@11.1.0",
   "devDependencies": {
-    "turbo": "^2.4.3"
+    "turbo": "^2.4.4"
   }
 }
