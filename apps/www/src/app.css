@@ -18,3 +18,7 @@
   --color-blaze-900: hsl(0 60% 15%);
   --color-blaze-950: hsl(0 50% 10%);
 }
+
+:root {
+  color-scheme: dark;
+}
