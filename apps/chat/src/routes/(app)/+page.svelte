@@ -54,13 +54,8 @@
   >
     WW<br />W .
   </mark>
-  <h1
-    class="text-text-200 relative flex flex-col items-center text-2xl font-medium"
-  >
-    <span>Welcome to $BROWSER DAO</span>
-    <small class="text-base font-light"
-      >Control the world wide web with AI</small
-    >
+  <h1 class="text-text-200 relative text-center text-2xl font-light">
+    Control the world wide web with AI
   </h1>
   <form
     class="relative flex min-w-0 flex-col items-center gap-y-4"
