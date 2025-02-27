@@ -6,9 +6,8 @@ import {
   type BrowserContext,
   type Page,
 } from "playwright";
-import sharp from "sharp";
 import * as cursors from "../assets/cursors.svg.ts";
-import { withCachedPrompts } from "./clause-3-5-sonnet.utils.ts";
+import { withCachedPrompts } from "./claude-3-7-sonnet.utils.ts";
 
 type LaunchOptions = {
   session: string;
@@ -16,21 +15,18 @@ type LaunchOptions = {
 };
 
 const MAX_STEPS = 512;
+const WXGA_WIDTH = 1280;
+const WXGA_HEIGHT = 800;
 
-const resolution = {
-  browser: { width: 1280, height: 720 },
-  agent: { width: 1024, height: 576 },
-};
+const model = "claude-3-7-sonnet-20250219";
+const betas = ["computer-use-2025-01-24", "token-efficient-tools-2025-02-19"];
 
-const model = "claude-3-5-sonnet-20241022";
-const betas = ["computer-use-2024-10-22", "prompt-caching-2024-07-31"];
-
-const tools: Anthropic.Beta.BetaToolComputerUse20241022[] = [
+const tools: Anthropic.Beta.BetaToolComputerUse20250124[] = [
   {
-    type: "computer_20241022",
+    type: "computer_20250124",
     name: "computer",
-    display_width_px: resolution.agent.width,
-    display_height_px: resolution.agent.height,
+    display_width_px: WXGA_WIDTH,
+    display_height_px: WXGA_HEIGHT,
     cache_control: { type: "ephemeral" },
   },
 ];
@@ -40,9 +36,14 @@ Operator is an autonomous browser agent that emulates a generic persona to inter
 
 Use a mouse and keyboard to interact with a browser, and take screenshots.
 * This is an interface to a browser application. You do not have access to the address bar or search. You must stay within the browser viewport.
-* Some websites may take time to load or process actions, so you may need to wait and take successive screenshots to see the results of your actions. E.g. if you click on a button and nothing happens, try taking another screenshot.
-* Some websites may have more information 'below the fold', try scrolling with Page_Up / Page_Down and taking another screenshot.
+* Some websites may take time to load or process actions. You may need to wait and take successive screenshots to see the results of your actions, e.g. if you click on a button and nothing happens, try taking another screenshot.
+* Some websites may have more information 'below the fold', try scrolling and taking another screenshot. Make sure you scroll down to see everything before deciding something isn't available.
 * The screen's resolution is {{ display_width_px }}x{{ display_height_px }}.
+* Whenever you intend to move the cursor to click on an element, you should consult a screenshot to determine the coordinates of the element before moving the cursor.
+* If you tried clicking on a button or link but it failed to load, even after waiting, try adjusting your cursor position so that the tip of the cursor visually falls on the element that you want to click.
+* Make sure to click any buttons, links, icons, etc with the cursor tip in the center of the element. Don't click boxes on their edges unless asked.
+* When using your computer function calls, they take a while to run and send back to you. Where possible/feasible, try to chain multiple of these calls all into one function calls request.
+* Include a brief summary of any persistent cursor positioning issues encountered.
 
 Mouse Cursor Position Validation:
 * Before any click action, take a screenshot and verify:
@@ -73,19 +74,16 @@ Validation Process:
 
 Communication Guidelines:
 * Limit replies to 280 characters
-* Avoid technical terms like "screenshot", "coordinates", "Page_Up", "Page_Down"
-* Instead use terms like:
-    - "look at" instead of "screenshot"
-    - "location" instead of "coordinates"
-    - "scroll" instead of "Page_Up/Down"
+* Strictly substitute terms like:
+    - "screenshot" to "look at"
+    - "coordinates" to "on the screen"
 * Avoid technical jargon unless specifically relevant to user responses
 * Use clear, direct language inclusive to non-native English speakers
 * Maintain professional detachment when faced with appeals to emotion
 
 Task Completion:
-* If task is successfully completed, end with \<complete>
-* If task cannot be completed despite multiple attempts, end with \<quit>
-* Include a brief summary of any persistent cursor positioning issues encountered
+* If the objective is successfully completed, end with \<complete>
+* If the objective cannot be completed despite multiple attempts, end with \<quit>
 
 If required to enter an email address use "agent@email.browser.icu", unless another is provided by the user.
 `;
@@ -144,8 +142,8 @@ export default class Agent extends EventEmitter {
 
     this._browserContext = await this._browser.newContext({
       viewport: {
-        width: resolution.browser.width,
-        height: resolution.browser.height,
+        width: WXGA_WIDTH,
+        height: WXGA_HEIGHT,
       },
       geolocation: { latitude: 51.509865, longitude: -0.118092 }, // London, UK
       permissions: ["geolocation"],
@@ -165,27 +163,68 @@ export default class Agent extends EventEmitter {
     });
   }
 
-  cursor([x, y]: [number, number] | number[] = []) {
-    if (Number.isFinite(x)) {
-      this._cursorPositionX =
-        x * (resolution.browser.width / resolution.agent.width);
-    }
+  async cursor(page: Page, [x, y]: [number, number] | number[] = []) {
+    if (Number.isFinite(x) && Number.isFinite(y)) {
+      this._cursorPositionX = x;
 
-    if (Number.isFinite(y)) {
-      this._cursorPositionY =
-        y * (resolution.browser.height / resolution.agent.height);
+      this._cursorPositionY = y;
+
+      const interactive = await page
+        .getByRole("link", { disabled: false })
+        .or(page.getByRole("button", { disabled: false }))
+        .or(page.getByRole("checkbox", { disabled: false }))
+        .or(page.getByRole("combobox", { disabled: false }))
+        .all();
+
+      const locators = await Promise.all(
+        interactive.map(async (locator) => ({
+          locator,
+          rect: await locator.boundingBox(),
+        })),
+      );
+
+      const hoverable =
+        locators.findIndex(({ rect }) => {
+          if (!rect?.y || !rect?.x || !rect?.height || !rect?.width) {
+            return false;
+          }
+
+          const left = rect.x;
+          const right = rect.x + rect.width;
+
+          const top = rect.y;
+          const bottom = rect.y + rect.height;
+
+          return x >= left && x <= right && y >= top && y <= bottom;
+        }) > -1;
+
+      await page.evaluate(
+        ({ cursors, x, y, hoverable }) => {
+          const id = "gadabout-cursor";
+          const cursor =
+            document.getElementById(id) || document.createElement("aside");
+          cursor.id = id;
+          cursor.setAttribute(
+            "style",
+            `pointer-events: none; position: absolute; z-index: 99999999; left: ${x}px; top: ${y}px;`,
+          );
+          cursor.innerHTML = hoverable ? cursors.hand : cursors.arrow;
+          document.body.appendChild(cursor);
+        },
+        { cursors, x, y, hoverable },
+      );
+
+      await page.mouse.move(x, y);
+      await this.screenshot(page);
     }
 
     return [this._cursorPositionX, this._cursorPositionY];
   }
 
   async screenshot(page: Page) {
-    const screen = await page.screenshot({ caret: "initial" });
-    const buffer = await sharp(screen)
-      .resize(resolution.agent.width, resolution.agent.height)
-      .toBuffer();
-
+    const buffer = await page.screenshot({ caret: "initial" });
     const base64string = buffer.toString("base64");
+
     this.dispatch("render", { buffer, base64string });
 
     return base64string;
@@ -209,7 +248,7 @@ export default class Agent extends EventEmitter {
         tools,
         system,
         max_tokens: 5120,
-        temperature: 0.5,
+        thinking: { type: "enabled", budget_tokens: 1024 },
         messages: withCachedPrompts(this._messages),
       });
 
@@ -286,12 +325,31 @@ export default class Agent extends EventEmitter {
               type ComputerToolUseBlockInput = {
                 action: string;
                 coordinate?: number[];
+                duration?: number;
+                scroll_amount?: number;
+                scroll_direction?: "up" | "down" | "left" | "right";
+                start_coordinate?: number[];
                 text?: string;
               };
 
               const input = res.input as ComputerToolUseBlockInput;
+              const [x, y] = await this.cursor(
+                page,
+                input.start_coordinate || input.coordinate,
+              );
 
               switch (input.action) {
+                // `wait`: Wait for a specified duration (in seconds).
+                case "wait": {
+                  if (!input.duration) {
+                    break;
+                  }
+
+                  await delay(input.duration * 1000);
+                  content.push({ type: "tool_result", tool_use_id: res.id });
+                  break;
+                }
+
                 // `screenshot`: Take a screenshot of the screen.
                 case "screenshot": {
                   const screenshot = await this.screenshot(page);
@@ -303,6 +361,7 @@ export default class Agent extends EventEmitter {
                       {
                         type: "image",
                         source: {
+                          // TODO: move to url image source
                           type: "base64",
                           media_type: "image/png",
                           data: screenshot,
@@ -322,6 +381,7 @@ export default class Agent extends EventEmitter {
                     break;
                   }
 
+                  // TODO: support multiple keys delimited with spaces, e.g. "BackSpace BackSpace BackSpace"
                   let key = input.text;
 
                   // TODO: abstract this in a more extensive lookup library
@@ -383,86 +443,39 @@ export default class Agent extends EventEmitter {
                   await page.keyboard.type(input.text, { delay: 80 });
                   await this.screenshot(page);
 
-                  content.push({
-                    type: "tool_result",
-                    tool_use_id: res.id,
-                  });
+                  content.push({ type: "tool_result", tool_use_id: res.id });
 
                   break;
                 }
 
                 // `mouse_move`: Move the cursor to a specified (x, y) pixel coordinate on the screen.
                 case "mouse_move": {
-                  if (!input.coordinate) {
+                  if (!x || !y) {
                     break;
                   }
 
-                  const [x, y] = this.cursor(input.coordinate);
-
-                  const interactive = await page
-                    .getByRole("link", { disabled: false })
-                    .or(page.getByRole("button", { disabled: false }))
-                    .or(page.getByRole("checkbox", { disabled: false }))
-                    .or(page.getByRole("combobox", { disabled: false }))
-                    .all();
-
-                  const locators = await Promise.all(
-                    interactive.map(async (locator) => ({
-                      locator,
-                      rect: await locator.boundingBox(),
-                    })),
-                  );
-
-                  const hoverable =
-                    locators.findIndex(({ rect }) => {
-                      if (
-                        !rect?.y ||
-                        !rect?.x ||
-                        !rect?.height ||
-                        !rect?.width
-                      ) {
-                        return false;
-                      }
-
-                      const left = rect.x;
-                      const right = rect.x + rect.width;
-
-                      const top = rect.y;
-                      const bottom = rect.y + rect.height;
-
-                      return x >= left && x <= right && y >= top && y <= bottom;
-                    }) > -1;
-
-                  await page.evaluate(
-                    ({ cursors, x, y, hoverable }) => {
-                      const id = "gadabout-cursor";
-                      const cursor =
-                        document.getElementById(id) ||
-                        document.createElement("aside");
-                      cursor.id = id;
-                      cursor.setAttribute(
-                        "style",
-                        `pointer-events: none; position: absolute; z-index: 99999999; left: ${x}px; top: ${y}px;`,
-                      );
-                      cursor.innerHTML = hoverable
-                        ? cursors.hand
-                        : cursors.arrow;
-                      document.body.appendChild(cursor);
-                    },
-                    { cursors, x, y, hoverable },
-                  );
-
-                  await page.mouse.move(x, y);
-                  await this.screenshot(page);
-
-                  content.push({
-                    type: "tool_result",
-                    tool_use_id: res.id,
-                  });
+                  content.push({ type: "tool_result", tool_use_id: res.id });
 
                   break;
                 }
 
+                // `left_mouse_down`: Press the left mouse button.
+                case "left_mouse_down": {
+                  await page.mouse.down({ button: "left" });
+                  await page.waitForLoadState("domcontentloaded");
+                  content.push({ type: "tool_result", tool_use_id: res.id });
+                  break;
+                }
+
+                // `left_mouse_up`: Release the left mouse button.
+                case "left_mouse_up": {
+                  await page.mouse.up({ button: "left" });
+                  await page.waitForLoadState("domcontentloaded");
+                  content.push({ type: "tool_result", tool_use_id: res.id });
+                  break;
+                }
+
+                // TODO: add support for key combination with input.text
                 // `left_click`: Click the left mouse button.
                 case "left_click":
                 // `right_click`: Click the right mouse button.
@@ -470,7 +483,9 @@ export default class Agent extends EventEmitter {
                 // `middle_click`: Click the middle mouse button.
                 case "middle_click":
                 // `double_click`: Double-click the left mouse button.
-                case "double_click": {
+                case "double_click":
+                // `triple_click`: Triple-click the left mouse button.
+                case "triple_click": {
                   let button: "left" | "right" | "middle" = "left";
                   if (input.action === "right_click") {
                     button = "right";
@@ -486,50 +501,84 @@ export default class Agent extends EventEmitter {
                     await page.mouse.up({ button });
                   }
 
+                  if (input.action === "triple_click") {
+                    await page.mouse.down({ button });
+                    await page.mouse.up({ button });
+                    await page.mouse.down({ button });
+                    await page.mouse.up({ button });
+                  }
+
                   await page.waitForLoadState("domcontentloaded");
 
                   await delay(2000);
                   await this.screenshot(page);
 
-                  content.push({
-                    type: "tool_result",
-                    tool_use_id: res.id,
-                  });
+                  content.push({ type: "tool_result", tool_use_id: res.id });
 
                   break;
                 }
 
-                // `left_click_drag`: Click and drag the cursor to a specified (x, y) pixel coordinate on the screen.
+                // `left_click_drag`: Click and drag the cursor from `start_coordinate` to a specified (x, y) pixel coordinate on the screen.
                 case "left_click_drag": {
                   if (!input.coordinate) {
                     break;
                   }
 
-                  const [x, y] = this.cursor(input.coordinate);
+                  const [targetX, targetY] = input.coordinate;
 
-                  await page.mouse.down();
-                  // Move the cursor twice to more reliable trigger dragover event where applicable
-                  await page.mouse.move(
-                    x * Math.random() * 0.2 + 0.9,
-                    y * Math.random() * 0.2 + 0.9,
-                  );
                   await page.mouse.move(x, y);
+                  await page.mouse.down();
+                  // Move the cursor twice to more reliably trigger dragover event where applicable
+                  await page.mouse.move(
+                    targetX * Math.random() * 0.2 + 0.9,
+                    targetY * Math.random() * 0.2 + 0.9,
+                  );
+                  await page.mouse.move(targetX, targetY);
                   await page.mouse.up();
                   await page.waitForLoadState("domcontentloaded");
                   await this.screenshot(page);
 
-                  content.push({
-                    type: "tool_result",
-                    tool_use_id: res.id,
-                  });
+                  content.push({ type: "tool_result", tool_use_id: res.id });
+
+                  break;
+                }
+
+                // `scroll`: Scroll the screen in a specified direction by a specified amount of clicks of the scroll wheel, at the specified (x, y) pixel coordinate. DO NOT use PageUp/PageDown to scroll.
+                case "scroll": {
+                  if (!input.scroll_amount || !input.scroll_direction) {
+                    break;
+                  }
+
+                  const clicks =
+                    input.scroll_direction === "down" ||
+                    input.scroll_direction === "right"
+                      ? input.scroll_amount
+                      : -input.scroll_amount;
+
+                  const deltaX =
+                    input.scroll_direction === "left" ||
+                    input.scroll_direction === "right"
+                      ? 60 * clicks
+                      : 0;
+                  const deltaY =
+                    input.scroll_direction === "up" ||
+                    input.scroll_direction === "down"
+                      ? 100 * clicks
+                      : 0;
+
+                  await page.mouse.wheel(deltaX, deltaY);
+                  await delay(1000);
+
+                  await page.waitForLoadState("domcontentloaded");
+                  await this.screenshot(page);
+
+                  content.push({ type: "tool_result", tool_use_id: res.id });
 
                   break;
                 }
 
                 // `cursor_position`: Get the current (x, y) pixel coordinate of the cursor on the screen.
                 case "cursor_position": {
-                  const [x, y] = this.cursor();
-
                   content.push({
                     type: "tool_result",
                     tool_use_id: res.id,

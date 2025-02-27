@@ -1,6 +1,6 @@
 import type Anthropic from "@anthropic-ai/sdk";
 import { describe, expect, test as it } from "vitest";
-import { withCachedPrompts } from "./clause-3-5-sonnet.utils.ts";
+import { withCachedPrompts } from "./claude-3-7-sonnet.utils.ts";
 
 describe("withCachedPrompts()", () => {
   it("should modify the last user message with an array content", () => {

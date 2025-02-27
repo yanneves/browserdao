@@ -63,7 +63,7 @@
       </div>
       {#if browserOpen}
         <figure
-          class="bg-bg-100 relative grid aspect-video rounded-b-2xl transition-transform duration-150 ease-out"
+          class="bg-bg-100 relative grid rounded-b-2xl transition-transform duration-150 ease-out empty:aspect-[16/10]"
         >
           {#if render}
             <img
