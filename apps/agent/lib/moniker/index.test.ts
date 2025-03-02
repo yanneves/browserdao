@@ -1,7 +1,7 @@
 import { describe, expect, expectTypeOf, test as it } from "vitest";
 import moniker from "./index.ts";
 
-describe("moniker", () => {
+describe("moniker()", () => {
   it("should return an array", () => {
     expectTypeOf(moniker()).toBeArray();
   });

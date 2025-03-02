@@ -7,6 +7,7 @@ import {
   type Page,
 } from "playwright";
 import * as cursors from "../assets/cursors.svg.ts";
+import xdotoolParse from "../xdotool-parser/index.ts";
 import { withCachedPrompts } from "./claude-3-7-sonnet.utils.ts";
 
 type LaunchOptions = {
@@ -381,47 +382,31 @@ export default class Agent extends EventEmitter {
                     break;
                   }
 
-                  // TODO: support multiple keys delimited with spaces, e.g. "BackSpace BackSpace BackSpace"
-                  let key = input.text;
-
-                  // TODO: abstract this in a more extensive lookup library
-                  const lookup = [
-                    ["Space", " "],
-                    ["Tab", "Tab"],
-                    ["Escape", "Escape"],
-                    ["Enter", "Enter"],
-                    ["Return", "Enter"],
-                    ["Linefeed", "Enter"],
-                    ["BackSpace", "Backspace"],
-                    ["Clear", "Clear"],
-                    ["Delete", "Delete"],
-                    ["Page_Up", "PageUp"],
-                    ["Page_Down", "PageDown"],
-                    ["End", "End"],
-                    ["Home", "Home"],
-                    ["Up", "ArrowUp"],
-                    ["Right", "ArrowRight"],
-                    ["Down", "ArrowDown"],
-                    ["Left", "ArrowLeft"],
-                  ];
-
-                  lookup.every(([xkey, uikey]) => {
-                    if (key.includes(xkey)) {
-                      key = uikey;
-                      return false;
-                    }
-
-                    return true;
-                  });
+                  const keys = input.text.split(" ").map(xdotoolParse);
 
                   try {
-                    await page.keyboard.press(key);
-                    await page.waitForLoadState("domcontentloaded");
-                    await this.screenshot(page);
+                    // Loop through keys to press
+                    for (const { key, modifier } of keys) {
+                      if (!key) throw new Error();
 
-                    content.push({ type: "tool_result", tool_use_id: res.id });
+                      if (modifier) {
+                        await page.keyboard.down(modifier);
+                      }
+
+                      // Press key with optional modifier applied
+                      await page.keyboard.press(key);
+
+                      if (modifier) {
+                        await page.keyboard.up(modifier);
+                      }
+
+                      await page.waitForLoadState("domcontentloaded");
+                      await delay(Math.floor(Math.random() * (50 - 30) + 30));
+                      await this.screenshot(page);
+                    }
                   } catch {
-                    const err = `Unsuccessful key press using "${key}"`;
+                    const err = `Unsuccessful key press using "${input.text}"`;
+
                     console.error(err);
                     content.push({
                       type: "tool_result",
@@ -429,7 +414,11 @@ export default class Agent extends EventEmitter {
                       content: err,
                       is_error: true,
                     });
+
+                    break;
                   }
+
+                  content.push({ type: "tool_result", tool_use_id: res.id });
 
                   break;
                 }
@@ -530,8 +519,8 @@ export default class Agent extends EventEmitter {
                   await page.mouse.down();
                   // Move the cursor twice to more reliably trigger dragover event where applicable
                   await page.mouse.move(
-                    targetX * Math.random() * 0.2 + 0.9,
-                    targetY * Math.random() * 0.2 + 0.9,
+                    targetX * (Math.random() * (1.1 - 0.9) + 0.9),
+                    targetY * (Math.random() * (1.1 - 0.9) + 0.9),
                   );
                   await page.mouse.move(targetX, targetY);
                   await page.mouse.up();
