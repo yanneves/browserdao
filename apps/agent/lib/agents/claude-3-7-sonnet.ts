@@ -482,20 +482,23 @@ export default class Agent extends EventEmitter {
                     button = "middle";
                   }
 
-                  await page.mouse.down({ button });
-                  await page.mouse.up({ button });
-
-                  if (input.action === "double_click") {
-                    await page.mouse.down({ button });
-                    await page.mouse.up({ button });
+                  let clickCount: number;
+                  switch (input.action) {
+                    case "double_click":
+                      clickCount = 2;
+                      break;
+                    case "triple_click":
+                      clickCount = 3;
+                      break;
+                    default:
+                      clickCount = 1;
                   }
 
-                  if (input.action === "triple_click") {
-                    await page.mouse.down({ button });
-                    await page.mouse.up({ button });
-                    await page.mouse.down({ button });
-                    await page.mouse.up({ button });
-                  }
+                  await page.mouse.click(x, y, {
+                    button,
+                    clickCount,
+                    delay: 120,
+                  });
 
                   await page.waitForLoadState("domcontentloaded");
 
