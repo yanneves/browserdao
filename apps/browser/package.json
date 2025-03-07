@@ -11,7 +11,7 @@
     "start": "node --experimental-strip-types ."
   },
   "dependencies": {
-    "playwright": "~1.50.1"
+    "playwright": "~1.51.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
