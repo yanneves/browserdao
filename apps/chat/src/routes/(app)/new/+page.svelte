@@ -156,7 +156,9 @@
             class:lucide--terminal={status === "user"}
           ></i>
         </div>
-        <p class="overflow-hidden px-3 text-sm leading-6 break-words">
+        <p
+          class="overflow-hidden px-3 text-sm leading-6 break-words whitespace-break-spaces"
+        >
           {message}
         </p>
       </li>
