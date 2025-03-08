@@ -281,12 +281,11 @@ export default class Agent extends EventEmitter {
       }
 
       if (completion.stop_reason !== "tool_use") {
-        const [res] = completion.content;
+        const [res] = completion.content.filter(
+          (content) => content?.type === "text",
+        );
 
-        let thoughts: string | undefined;
-        if (res?.type === "text") {
-          thoughts = res.text;
-        }
+        const thoughts = res.text;
 
         let status = "question";
         if (thoughts?.includes("<complete>")) {
