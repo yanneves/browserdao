@@ -1,10 +1,15 @@
 <script>
   import { page } from "$app/state";
   import Shell from "$lib/components/Shell.svelte";
-  import { onMount } from "svelte";
+  import { SvelteSet } from "svelte/reactivity";
+  import { slide } from "svelte/transition";
 
   let { children } = $props();
-  let replays = $state.raw([]);
+  let editMode = $state.raw(false);
+  let viewArchived = $state.raw(false);
+  let replaysData = $state.raw([]);
+
+  const replaySelection = $state.raw(new SvelteSet());
 
   const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
 
@@ -15,12 +20,9 @@
   const MONTH_MS = DAY_MS * 30;
   const YEAR_MS = DAY_MS * 365;
 
-  onMount(async () => {
-    const res = await fetch("/api/replays");
-    const json = await res.json();
-
+  const replays = $derived.by(() => {
     const now = Date.now();
-    replays = json.replays?.map((row) => {
+    return replaysData?.map((row) => {
       const { id, prompt } = row;
 
       // Calculate relative time to display
@@ -61,6 +63,52 @@
       return { id, prompt, url, hostname, date, created };
     });
   });
+
+  async function archiveReplays(set) {
+    const arr = Array.from(set);
+
+    replaysData = replaysData.filter(({ id }) => !set.has(id));
+    replaySelection.clear();
+
+    await fetch(
+      viewArchived ? "/api/replays/restore" : "/api/replays/archive",
+      {
+        method: "PUT",
+        body: JSON.stringify(arr),
+      },
+    );
+  }
+
+  // TODO: support multiselect on shift-click
+  function handleReplaySelection(event) {
+    if (editMode) {
+      const { id } = event.currentTarget;
+      event.preventDefault();
+
+      if (replaySelection.has(id)) {
+        replaySelection.delete(id);
+        return;
+      }
+
+      replaySelection.add(id);
+    }
+  }
+
+  $effect(async () => {
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    const res = await fetch(
+      viewArchived ? "/api/replays/archive" : "/api/replays",
+      { signal },
+    );
+    const json = await res.json();
+    replaysData = json.replays;
+
+    return () => {
+      controller.abort();
+    };
+  });
 </script>
 
 <Shell>
@@ -74,9 +122,58 @@
 
   {#snippet nav()}
     <ul class="flex flex-1 flex-col overflow-y-hidden">
-      <li class="flex flex-col overflow-y-hidden">
-        <p class="text-text-200 px-4 font-light">Recent</p>
-        <ul class="mt-4 flex-1 space-y-2 overflow-y-auto pb-1">
+      <li class="flex flex-col gap-y-2 overflow-y-hidden py-1">
+        <p class="text-text-200 flex items-center gap-x-1 px-4 font-light">
+          <span class="mr-auto">{viewArchived ? "Archived" : "Recent"}</span>
+          {#if editMode}
+            <button
+              type="button"
+              class="focus:ring-blaze-300 text-blaze-300 cursor-pointer rounded-lg p-2 text-xs focus:ring-2 focus:outline-hidden"
+              onclick={() => {
+                editMode = false;
+                replaySelection.clear();
+              }}>Back</button
+            >
+            {#if replaySelection.size}
+              <button
+                type="button"
+                class="focus:ring-blaze-300 cursor-pointer rounded-lg p-2 text-xs focus:ring-2 focus:outline-hidden"
+                class:text-blaze-300={viewArchived}
+                class:text-blaze-700={!viewArchived}
+                onclick={() => archiveReplays(replaySelection)}
+                >{viewArchived ? "Restore" : "Archive"} ({replaySelection.size})</button
+              >
+            {/if}
+          {:else}
+            {#if viewArchived}
+              <button
+                type="button"
+                class="focus:ring-blaze-300 text-blaze-300 cursor-pointer rounded-lg p-2 text-xs focus:ring-2 focus:outline-hidden"
+                onclick={() => (viewArchived = false)}>Back</button
+              >
+            {:else}
+              <button
+                type="button"
+                class="text-blaze-700 focus:ring-blaze-300 flex cursor-pointer items-center rounded-lg p-2 focus:ring-2 focus:outline-hidden"
+                onclick={() => (viewArchived = true)}
+              >
+                <span class="sr-only">View Archived</span>
+                <i class="iconify lucide--archive size-4 shrink-0"></i>
+              </button>
+            {/if}
+            <button
+              type="button"
+              class="text-blaze-300 focus:ring-blaze-300 flex cursor-pointer items-center rounded-lg p-2 focus:ring-2 focus:outline-hidden"
+              onclick={() => (editMode = true)}
+            >
+              <span class="sr-only">Manage</span>
+              <i class="iconify lucide--edit size-4 shrink-0"></i>
+            </button>
+          {/if}
+        </p>
+        <ul
+          class="focus:ring-blaze-300 flex-1 space-y-2 overflow-y-auto pt-2 pb-1 focus:ring-2 focus:outline-hidden"
+        >
           <li class="px-4">
             <a
               href="/"
@@ -86,53 +183,40 @@
               Start new chat
             </a>
           </li>
-          {#each replays?.slice(0, 20) as { id, prompt, url, hostname, date, created } (id)}
-            <li class="px-4">
+          {#each replays as { id, prompt, url, hostname, date, created } (id)}
+            <li class="px-4" out:slide={{ duration: 150 }}>
               <a
+                {id}
                 href="/replay/{id}"
                 aria-current={page.params?.id === id ? "page" : null}
-                class="text-text-200 focus:ring-blaze-300 hover:bg-bg-100 focus:bg-bg-100 aria-[current=page]:bg-bg-100 flex h-32 gap-x-2 rounded-2xl p-2 text-sm font-light focus:ring focus:outline-hidden"
+                class="text-text-200 focus:ring-blaze-300 hover:bg-bg-100 focus:bg-bg-100 aria-[current=page]:bg-bg-100 block rounded-2xl p-2 text-sm font-light focus:ring-2 focus:outline-hidden"
+                onclick={handleReplaySelection}
               >
-                <img
-                  src="https://screenshotof.com/{hostname}"
-                  class="bg-bg-200 aspect-square rounded-2xl object-cover"
-                  alt="Screenshot of {hostname}"
-                />
-                <span class="block min-w-0 space-y-2">
-                  <span
-                    class="text-blaze-300 flex min-w-0 items-center gap-x-1"
-                  >
-                    <img
-                      src="https://icons.duckduckgo.com/ip3/{hostname}.ico"
-                      alt="{hostname} favicon"
-                      class="size-4"
-                    />
-                    <span class="truncate">{url}</span>
+                <span class="flex items-center gap-x-4">
+                  <span class="min-w-0 flex-1">
+                    <span class="flex items-center justify-start gap-x-1">
+                      <img
+                        src="https://icons.duckduckgo.com/ip3/{hostname}.ico"
+                        alt="{hostname} favicon"
+                        class="size-4"
+                      />
+                      <span class="text-blaze-300 truncate">{url}</span>
+                      <time
+                        datetime={date.toISOString()}
+                        class="ml-auto shrink-0 text-xs text-gray-400"
+                        >{created}</time
+                      >
+                    </span>
+                    <span class="line-clamp-2 text-xs">{prompt}</span>
                   </span>
-                  <time
-                    datetime={date.toISOString()}
-                    class="inline-block text-xs text-gray-400">{created}</time
-                  >
-                  <span class="line-clamp-3 text-xs">{prompt}</span>
+                  {#if editMode}
+                    <i
+                      class="iconify text-blaze-300 size-4 shrink-0"
+                      class:lucide--square-check-big={replaySelection.has(id)}
+                      class:lucide--box-select={!replaySelection.has(id)}
+                    ></i>
+                  {/if}
                 </span>
-              </a>
-            </li>
-          {/each}
-          {#each replays?.slice(20) as { id, prompt, url, date, created } (id)}
-            <li class="px-4">
-              <a
-                href="/replay/{id}"
-                aria-current={page.params?.id === id ? "page" : null}
-                class="text-text-200 focus:ring-blaze-300 hover:bg-bg-100 focus:bg-bg-100 aria-[current=page]:bg-bg-100 block rounded-2xl p-2 text-sm font-light focus:ring focus:outline-hidden"
-              >
-                <span class="flex justify-between gap-x-1">
-                  <span class="text-blaze-300 truncate">{url}</span>
-                  <time
-                    datetime={date.toISOString()}
-                    class="shrink-0 text-xs text-gray-400">{created}</time
-                  >
-                </span>
-                <span class="line-clamp-2 text-xs">{prompt}</span>
               </a>
             </li>
           {/each}
