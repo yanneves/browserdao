@@ -83,7 +83,9 @@
       <div class="relative flex size-6 shrink-0 items-center justify-center">
         <i class="iconify text-blaze-400 lucide--terminal size-4"></i>
       </div>
-      <p class="overflow-hidden px-3 text-sm leading-6 break-words">
+      <p
+        class="overflow-hidden px-3 text-sm leading-6 break-words whitespace-break-spaces"
+      >
         {data?.replay.prompt}
       </p>
     </li>
@@ -95,7 +97,9 @@
           >
             <i class="iconify lucide--terminal text-blaze-400 size-4"></i>
           </div>
-          <p class="overflow-hidden px-3 text-sm leading-6 break-words">
+          <p
+            class="overflow-hidden px-3 text-sm leading-6 break-words whitespace-break-spaces"
+          >
             {payload.data.text}
           </p>
         {:else}
@@ -115,7 +119,9 @@
               class:lucide--badge-x={payload.data.status === "quit"}
             ></i>
           </div>
-          <p class="overflow-hidden px-3 text-sm leading-6 break-words">
+          <p
+            class="overflow-hidden px-3 text-sm leading-6 break-words whitespace-break-spaces"
+          >
             {payload.data.thoughts}
           </p>
         {/if}
