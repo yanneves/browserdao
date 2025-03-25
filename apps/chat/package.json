@@ -24,21 +24,21 @@
     "@sveltejs/kit": "^2.20.2",
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
     "@tailwindcss/forms": "^0.5.10",
-    "@tailwindcss/postcss": "^4.0.15",
+    "@tailwindcss/postcss": "^4.0.16",
     "@tailwindcss/typography": "^0.5.16",
     "@types/eslint": "^9.6.1",
-    "eslint": "^9.22.0",
+    "eslint": "^9.23.0",
     "eslint-config-prettier": "^10.1.1",
     "eslint-config-turbo": "^2.4.4",
     "eslint-plugin-svelte": "^3.3.3",
     "globals": "^16.0.0",
-    "partysocket": "^1.0.3",
+    "partysocket": "^1.1.2",
     "prettier": "^3.5.3",
     "prettier-plugin-svelte": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
-    "svelte": "^5.24.1",
+    "svelte": "^5.25.3",
     "tailwindcss": "^4.0.3",
-    "vite": "^6.2.2"
+    "vite": "^6.2.3"
   },
   "engines": {
     "node": "22.x"
