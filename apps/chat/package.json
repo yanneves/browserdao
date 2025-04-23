@@ -10,7 +10,7 @@
     "start": "node build/"
   },
   "dependencies": {
-    "pg": "^8.15.0",
+    "pg": "^8.15.1",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
