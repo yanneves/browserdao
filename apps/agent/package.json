@@ -13,13 +13,13 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.40.1",
-    "@aws-sdk/client-s3": "^3.800.0",
-    "openai": "^4.96.2",
+    "@aws-sdk/client-s3": "^3.802.0",
+    "openai": "^4.97.0",
     "pg": "^8.15.6",
     "playwright": "~1.52.0",
     "tsx": "^4.19.4",
     "uuid": "^11.1.0",
-    "ws": "^8.18.1"
+    "ws": "^8.18.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.26.0",
