@@ -1,0 +1,236 @@
+[
+  {
+    "id": "1037784125910646785",
+    "created_at": "2025-01-13T14:03:01.392628",
+    "wallet_address": "0xe58b397f6e549C1dDbdCA718eFC7344D9e4E3d39",
+    "twitter_handle": "kstyle3",
+    "round_number": 1,
+    "review_pass": false,
+    "review_note": "Invalid Twitter handle"
+  },
+  {
+    "id": "1037784287070420993",
+    "created_at": "2025-01-13T14:03:50.574886",
+    "wallet_address": "4MfaEVHXaCThHmxppLC5NJdijMfpVfJmUrgrYoqf9zSB",
+    "twitter_handle": "blankyynamenew",
+    "round_number": 1,
+    "review_pass": false,
+    "review_note": "Invalid Twitter handle"
+  },
+  {
+    "id": "1037784442083540993",
+    "created_at": "2025-01-13T14:04:37.881256",
+    "wallet_address": "HcYjivMVBp283jDkGh4CPhxBekwRmtD7n85JrYaauHGA",
+    "twitter_handle": "hakyzz1",
+    "round_number": 1,
+    "review_pass": true,
+    "review_note": "Approved, well done!"
+  },
+  {
+    "id": "1037784606592303105",
+    "created_at": "2025-01-13T14:05:28.085323",
+    "wallet_address": "4MfaEVHXaCThHmxppLC5NJdijMfpVfJmUrgrYoqf9zSB",
+    "twitter_handle": "@blankyname",
+    "round_number": 1,
+    "review_pass": false,
+    "review_note": "Invalid Twitter handle"
+  },
+  {
+    "id": "1037784689638146049",
+    "created_at": "2025-01-13T14:05:53.428878",
+    "wallet_address": "HwqyDNjhkQ58ruuCoC98dzLZAeYcKddyqkBXXoxzvkqT",
+    "twitter_handle": "mojo_oa",
+    "round_number": 1,
+    "review_pass": true,
+    "review_note": "Approved, well done!"
+  },
+  {
+    "id": "1037784813496336385",
+    "created_at": "2025-01-13T14:06:31.227477",
+    "wallet_address": "CcoBXF3qbTToppexNZrLvNpwozj7Sw3RHDxsLoGsGbfb",
+    "twitter_handle": "lsm778",
+    "round_number": 1,
+    "review_pass": true,
+    "review_note": "Approved, well done!"
+  },
+  {
+    "id": "1037784898502524929",
+    "created_at": "2025-01-13T14:06:57.169304",
+    "wallet_address": "FdopNK9Q2gczxdBUgCVDnzX8MLqEWkU55uiwXyQvqZBb",
+    "twitter_handle": "luffy069420",
+    "round_number": 1,
+    "review_pass": true,
+    "review_note": "Approved, well done!"
+  },
+  {
+    "id": "1037784987665203201",
+    "created_at": "2025-01-13T14:07:24.379564",
+    "wallet_address": "DqMFxf9hgQ3aBkrT7EHfMu7yXsi4sdXzChsBWEAi796g",
+    "twitter_handle": "qwe1297249",
+    "round_number": 1,
+    "review_pass": true,
+    "review_note": "Approved, well done!"
+  },
+  {
+    "id": "1037786078375870465",
+    "created_at": "2025-01-13T14:12:57.23808",
+    "wallet_address": "9gtw5gddXs86oyJjVhiSqrhZu4PdmNi8gSJ1dpJJdHeZ",
+    "twitter_handle": "_jeteex",
+    "round_number": 1,
+    "review_pass": true,
+    "review_note": "Approved, well done!"
+  },
+  {
+    "id": "1037786104371576833",
+    "created_at": "2025-01-13T14:13:05.171384",
+    "wallet_address": "GroU1G5xogQ1ypTMougBTg7jm1SdYFzWcm7GePxcscUh",
+    "twitter_handle": "itszeld",
+    "round_number": 1,
+    "review_pass": true,
+    "review_note": "Approved, well done!"
+  },
+  {
+    "id": "1037787191352360961",
+    "created_at": "2025-01-13T14:18:36.891557",
+    "wallet_address": "GroU1G5xogQ1ypTMougBTg7jm1SdYFzWcm7GePxcscUh",
+    "twitter_handle": "itszeld",
+    "round_number": 1,
+    "review_pass": false,
+    "review_note": "Just flexing over here"
+  },
+  {
+    "id": "1037787212855148545",
+    "created_at": "2025-01-13T14:18:43.453714",
+    "wallet_address": "97LDZQp6HWiUKx8fRSBhoTmKMbJ4uVURuWTNBzVoFuP",
+    "twitter_handle": "GVentolini",
+    "round_number": 1,
+    "review_pass": true,
+    "review_note": "Approved, well done!"
+  },
+  {
+    "id": "1037787274887299073",
+    "created_at": "2025-01-13T14:19:02.384465",
+    "wallet_address": "9iHSnmcmtXuEkryJ9z5zbknbb9WCNNshP7kA9dBAa2MC",
+    "twitter_handle": "gabalandin",
+    "round_number": 1,
+    "review_pass": true,
+    "review_note": "Approved, well done!"
+  },
+  {
+    "id": "1037787365083316225",
+    "created_at": "2025-01-13T14:19:29.910044",
+    "wallet_address": "39UrmnMqD76Ve1DFF49Mecnqprztn4mmMW7a48YbTuQ9",
+    "twitter_handle": "loberadx",
+    "round_number": 1,
+    "review_pass": true,
+    "review_note": "Approved, well done!"
+  },
+  {
+    "id": "1037787760056172545",
+    "created_at": "2025-01-13T14:21:30.446256",
+    "wallet_address": "ivRcLPHLNUfXseKUVrqHrBmQiq5P1ttx7pXEyQXMpBr",
+    "twitter_handle": "chadjohnsonxbt",
+    "round_number": 1,
+    "review_pass": false,
+    "review_note": "Try again next time!"
+  },
+  {
+    "id": "1038149764111433729",
+    "created_at": "2025-01-14T21:02:45.316318",
+    "wallet_address": "5aL3Rt2AXq6m47NbAduRz6JyxhKe3P9iWL5nLJKbRrUP",
+    "twitter_handle": "marialetizia99",
+    "round_number": 2,
+    "review_pass": true,
+    "review_note": "Approved, well done!"
+  },
+  {
+    "id": "1038150311640039425",
+    "created_at": "2025-01-14T21:05:32.408758",
+    "wallet_address": "9G3gBy4vakBUXJTw15vSrekihHzabEdPfw6rnC8tqFq2",
+    "twitter_handle": "triliriliT",
+    "round_number": 2,
+    "review_pass": true,
+    "review_note": "Approved, well done!"
+  },
+  {
+    "id": "1038150810548469761",
+    "created_at": "2025-01-14T21:08:04.663596",
+    "wallet_address": "DqtohMeEWtq1tr6jFjgwBCstpRd79u5kWUExGw5gP6z3",
+    "twitter_handle": "@lomehn",
+    "round_number": 2,
+    "review_pass": true,
+    "review_note": "Approved, well done!"
+  },
+  {
+    "id": "1038151395987423233",
+    "created_at": "2025-01-14T21:11:03.325639",
+    "wallet_address": "BJ7mKnz7Tw6N4HkqZNevAbEToaVJRiRh1oFu5pecAj22",
+    "twitter_handle": "heisdamola",
+    "round_number": 2,
+    "review_pass": true,
+    "review_note": "Approved, well done!"
+  },
+  {
+    "id": "1038151996728999937",
+    "created_at": "2025-01-14T21:14:06.657295",
+    "wallet_address": "HAnLAPFeFT7PwSAHfZ3qF8TdxZFANknT1oSpfuWxYR62",
+    "twitter_handle": "rangoEVM",
+    "round_number": 2,
+    "review_pass": true,
+    "review_note": "Approved, well done!"
+  },
+  {
+    "id": "1038456490957012993",
+    "created_at": "2025-01-15T23:02:50.920994",
+    "wallet_address": "9gHnCDHYrHqrPyjDDJi79YCi4yYs6amuvRUEB3S4GYvA",
+    "twitter_handle": "meinweinn",
+    "round_number": 3,
+    "review_pass": true,
+    "review_note": "Approved, well done!"
+  },
+  {
+    "id": "1038456661590540289",
+    "created_at": "2025-01-15T23:03:42.994585",
+    "wallet_address": "9R9qujcpv4Cu8ddTXFrnEF2cWg39mKQFfXGvvtok4Nbn",
+    "twitter_handle": "Steve_Urkel01",
+    "round_number": 3,
+    "review_pass": true,
+    "review_note": "Approved, well done!"
+  },
+  {
+    "id": "1038456765395927041",
+    "created_at": "2025-01-15T23:04:14.673442",
+    "wallet_address": "FuKxap8ermN6fDczY7sHX8ErVJpJZtwR3T665CgkpRCD",
+    "twitter_handle": "undxfined_xo",
+    "round_number": 3,
+    "review_pass": true,
+    "review_note": "Approved, well done!"
+  },
+  {
+    "id": "1038456977092575233",
+    "created_at": "2025-01-15T23:05:19.278049",
+    "wallet_address": "0x211E8C1B6cb5A0162a95e07A3bF173f954E76af2",
+    "twitter_handle": "dotdotnfts",
+    "round_number": 3,
+    "review_pass": true,
+    "review_note": "Approved, well done!"
+  },
+  {
+    "id": "1038457858018672641",
+    "created_at": "2025-01-15T23:09:48.115397",
+    "wallet_address": "EmHG6shbEfopMJGCzuvcFUe1Wo7QY7e1vXTZw4iFFsgw",
+    "twitter_handle": "@jessgins",
+    "round_number": 3,
+    "review_pass": false,
+    "review_note": "Invalid Twitter handle"
+  },
+  {
+    "id": "1038458752881983489",
+    "created_at": "2025-01-15T23:14:21.205938",
+    "wallet_address": "3kB7zy9tvSkb6VWivhv4onELX8khjHnuN38MqknBpR4V",
+    "twitter_handle": "theartfuldagger",
+    "round_number": 3,
+    "review_pass": true,
+    "review_note": "Approved, well done!"
+  }
+]
