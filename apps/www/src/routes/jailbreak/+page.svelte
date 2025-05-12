@@ -104,7 +104,7 @@
               </tr>
             </thead>
             <tbody class="divide-y divide-zinc-800">
-              {#each data?.submissions.filter((submission) => submission.round === round) as { created, wallet, handle, review }}
+              {#each data?.submissions.filter((submission) => submission.round === round) as { created, wallet, handle, review } (created)}
                 <tr class="align-baseline">
                   <td
                     class="relative py-2 pr-4 pl-3 text-right align-middle text-sm font-medium whitespace-nowrap sm:pr-0"
