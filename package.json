@@ -10,6 +10,7 @@
     "apps/agent",
     "apps/browser",
     "apps/chat",
+    "apps/persona",
     "apps/www"
   ],
   "repository": {
