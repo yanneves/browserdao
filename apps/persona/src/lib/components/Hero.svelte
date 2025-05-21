@@ -4,8 +4,8 @@
   import persona_avatar from "$lib/images/avatars/persona.png";
 </script>
 
-<header class="grid min-h-[570px] grid-cols-2">
-  <div class="bg-primary relative">
+<header class="grid min-h-[570px] grid-cols-1 md:grid-cols-2">
+  <div class="bg-primary relative min-h-96">
     <span class="opacity-20">
       <GridPattern />
     </span>
@@ -16,9 +16,11 @@
       class="curie absolute right-0 bottom-0"
     />
   </div>
-  <div class="border-b-primary flex border-b pl-7">
-    <div class="max-w flex max-w-[600px] flex-col justify-end gap-8 pb-12">
-      <h1 class="font-michroma text-5xl font-extrabold sm:text-6xl">
+  <div class="border-b-primary flex border-b sm:pl-7">
+    <div
+      class="max-w flex max-w-[600px] flex-col justify-end gap-4 px-4 py-6 sm:gap-8 md:py-12"
+    >
+      <h1 class="font-michroma text-4xl font-extrabold sm:text-5xl lg:text-6xl">
         Solana's first <span class="rgb-shift italic">AI NFTs</span> with
         utility<span
           class="text-foreground-alt font-light tracking-widest sm:text-4xl lg:text-5xl"
@@ -30,9 +32,7 @@
         income.
       </p>
       <div class="flex gap-4">
-        <Button href="#waitlist" variant="outline"
-          >JOIN THE (PRESALE) WAITLIST</Button
-        >
+        <Button href="#waitlist" variant="outline">JOIN WAITLIST</Button>
       </div>
     </div>
   </div>
