@@ -4,7 +4,7 @@
   import persona_avatar from "$lib/images/avatars/persona.png";
 </script>
 
-<header class="grid min-h-[60dvh] grid-cols-2">
+<header class="grid min-h-[570px] grid-cols-2">
   <div class="bg-primary relative">
     <span class="opacity-20">
       <GridPattern />
@@ -17,7 +17,7 @@
     />
   </div>
   <div class="border-b-primary flex border-b pl-7">
-    <div class="max-w flex max-w-[600px] flex-col justify-center gap-8">
+    <div class="max-w flex max-w-[600px] flex-col justify-end gap-8 pb-12">
       <h1 class="font-michroma text-5xl font-extrabold sm:text-6xl">
         Solana's first <span class="rgb-shift italic">AI NFTs</span> with
         utility<span
