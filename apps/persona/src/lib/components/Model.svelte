@@ -126,7 +126,11 @@
 
       // Controls
       this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-      this.controls.screenSpacePanning = true;
+      this.controls.screenSpacePanning = false;
+
+      this.controls.enableZoom = false;
+      this.controls.enablePan = false;
+      this.controls.enableRotate = false;
 
       this.el.appendChild(this.renderer.domElement);
 
