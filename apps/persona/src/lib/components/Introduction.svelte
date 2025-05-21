@@ -4,11 +4,13 @@
 </script>
 
 <section id="introduction" aria-label="Introduction" class="py-16 sm:pb-20">
-  <Container class="text-lg tracking-tight text-zinc-300">
-    <p class="font-display text-4xl font-bold tracking-tight text-zinc-100">
+  <Container class="text-foreground/80 text-lg tracking-tight">
+    <h2
+      class="font-display text-foreground text-4xl font-medium tracking-tight"
+    >
       “A breakthrough” synthetic user encoded as an NFT with a personality
       modeled by its owner.
-    </p>
+    </h2>
     <p class="mt-4">
       Recent advancements in computer vision and reasoning have enabled an
       agentic web. Industries are competing to surface powerful AI Agents and
@@ -23,7 +25,7 @@
     <ul role="list" class="mt-8 space-y-3">
       {#each ["Gain valuable skills as you learn to train AI Agents", "No technical expertise required", "Receive a 2% - 8% distribution of revenue share from platforms", "Traits can be defined as static, dynamic, or inferred", "Works with leading platforms like Anthropic, OpenAI, Gemini, and DeepSeek"] as feature (feature)}
         <li class="flex">
-          <CheckIcon class="h-8 w-8 flex-none fill-orange-500" />
+          <CheckIcon class="fill-primary h-8 w-8 flex-none" />
           <span class="ml-4">{feature}</span>
         </li>
       {/each}
@@ -38,7 +40,7 @@
     <p class="mt-10">
       <a
         href="#waitlist"
-        class="text-base font-medium text-orange-600 hover:text-orange-800"
+        class="text-primary hover:text-primary/80 text-base font-medium"
       >
         Get notified to buy at the lowest floor price&nbsp;
         <span aria-hidden="true">&rarr;</span>

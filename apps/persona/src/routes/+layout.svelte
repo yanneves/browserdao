@@ -1,6 +1,9 @@
 <script>
   import "@fontsource-variable/inter";
   import "@fontsource-variable/space-grotesk";
+  import "@fontsource/michroma";
+  // 100-900 weight
+  import "@fontsource-variable/archivo";
   import "../app.css";
 
   const { children } = $props();
@@ -11,4 +14,4 @@
   <meta name="description" content="The synthetic users of the agentic web" />
 </svelte:head>
 
-{@render children()}
+<div class="font-display text-foreground">{@render children()}</div>
