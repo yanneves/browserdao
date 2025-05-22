@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-  <title>$BROWSER DAO</title>
+  <title>Browser.icu</title>
   <meta
     name="description"
     content="Control the web's most powerful autonomous browser agents"

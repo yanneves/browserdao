@@ -45,6 +45,6 @@
         <span class="mx-auto">Tokenomics</span></a
       >
     </p>
-    <p>&copy; 2025 $BROWSER DAO</p>
+    <p>&copy; 2025 Browser.icu</p>
   </footer>
 </article>
