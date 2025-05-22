@@ -8,7 +8,7 @@ import {
 } from "playwright";
 import * as cursors from "../assets/cursors.svg.ts";
 import xdotoolParse from "../xdotool-parser/index.ts";
-import { withCachedPrompts } from "./claude-3-7-sonnet.utils.ts";
+import { withCachedPrompts } from "./claude-4-sonnet.utils.ts";
 
 type LaunchOptions = {
   session: string;
@@ -19,8 +19,8 @@ const MAX_STEPS = 512;
 const WXGA_WIDTH = 1280;
 const WXGA_HEIGHT = 800;
 
-const model = "claude-3-7-sonnet-20250219";
-const betas = ["computer-use-2025-01-24", "token-efficient-tools-2025-02-19"];
+const model = "claude-sonnet-4-20250514";
+const betas = ["computer-use-2025-01-24", "interleaved-thinking-2025-05-14"];
 
 const tools: Anthropic.Beta.BetaToolComputerUse20250124[] = [
   {
