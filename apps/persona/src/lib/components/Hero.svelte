@@ -1,7 +1,6 @@
 <script>
   import Button from "$lib/components/Button.svelte";
   import GridPattern from "$lib/components/GridPattern.svelte";
-  import persona_avatar from "$lib/images/avatars/persona.png";
 </script>
 
 <header class="grid min-h-[570px] grid-cols-1 md:grid-cols-2">
@@ -9,11 +8,10 @@
     <span class="opacity-20">
       <GridPattern />
     </span>
-    <img
-      src={persona_avatar}
-      alt="persona"
-      width="400px"
-      class="curie absolute right-0 bottom-0"
+    <enhanced:img
+      src="$lib/images/avatars/persona.png?w=400"
+      alt="Our first persona Curie"
+      class="curie absolute right-0 bottom-0 max-w-screen"
     />
   </div>
   <div class="border-b-primary flex border-b sm:pl-7">
