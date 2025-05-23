@@ -11,7 +11,7 @@
     { id: "traits", title: "Traits" },
     { id: "comparison", title: "Comparison" },
     { id: "resources", title: "Resources" },
-    { id: "presale", title: "Presale" },
+    { id: "waitlist", title: "Waitlist" },
     { id: "creator", title: "Creator" },
   ];
 
