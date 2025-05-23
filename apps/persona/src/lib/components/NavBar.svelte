@@ -1,6 +1,7 @@
 <script>
   import { browser } from "$app/environment";
   import { onMount } from "svelte";
+  import { slide } from "svelte/transition";
 
   let navBarRef;
   let activeIndex = $state.raw(null);
@@ -55,70 +56,60 @@
 
 <svelte:window onresize={updateActiveIndex} onscroll={updateActiveIndex} />
 
-<div bind:this={navBarRef} class="sticky top-0 z-50">
+<div bind:this={navBarRef} class="font-michroma sticky top-0 z-50">
   <nav class="sm:hidden">
     <div
-      class={[
-        "relative flex items-center px-4 py-3",
-        !open &&
-          "bg-zinc-950/95 shadow-sm [@supports(backdrop-filter:blur(0))]:bg-zinc-950/80 [@supports(backdrop-filter:blur(0))]:backdrop-blur-sm",
-      ]}
+      class="relative flex items-center justify-between bg-zinc-950/95 px-4 py-3 shadow-sm [@supports(backdrop-filter:blur(0))]:bg-zinc-950/80 [@supports(backdrop-filter:blur(0))]:backdrop-blur-sm"
     >
-      {#if !open}
-        <span aria-hidden="true" class="font-mono text-sm text-orange-600">
-          {(mobileActiveIndex + 1).toString().padStart(2, "0")}
-        </span>
-        <span class="ml-4 text-base font-medium text-zinc-100">
-          {sections[mobileActiveIndex].title}
-        </span>
-      {/if}
+      <span aria-hidden="true" class="text-primary font-michroma text-sm">
+        {(mobileActiveIndex + 1).toString().padStart(2, "0")}
+      </span>
+      <span class="ml-4 text-base font-medium text-zinc-100">
+        {sections[mobileActiveIndex].title}
+      </span>
       <button
         type="button"
-        class={[
-          "-mr-1 ml-auto flex h-8 w-8 items-center justify-center",
-          open && "relative z-10",
-        ]}
+        class="p-2"
         aria-label="Toggle navigation menu"
-        onclick={() => (open = !open)}
+        on:click={() => (open = !open)}
       >
-        {#if !open}
-          <!-- Increase hit area -->
-          <span class="absolute inset-0"></span>
-        {/if}
         <svg
-          aria-hidden="true"
+          class="h-6 w-6 text-zinc-100"
           fill="none"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+          stroke="currentColor"
           viewBox="0 0 24 24"
-          class="h-6 w-6 stroke-zinc-700"
         >
           <path
-            d={open ? "M17 7 7 17M7 7l10 10" : "m15 16-3 3-3-3M15 8l-3-3-3 3"}
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d={open ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
           />
         </svg>
       </button>
     </div>
-    <div
-      class="absolute inset-x-0 top-0 bg-zinc-950/95 py-3.5 shadow-sm [@supports(backdrop-filter:blur(0))]:bg-zinc-950/80 [@supports(backdrop-filter:blur(0))]:backdrop-blur-sm"
-    >
-      {#each sections as section, sectionIndex (sectionIndex)}
-        <a
-          href="#{section.id}"
-          class="flex items-center px-4 py-1.5"
-          onclick={() => (open = false)}
-        >
-          <span aria-hidden="true" class="font-mono text-sm text-orange-600">
-            {(sectionIndex + 1).toString().padStart(2, "0")}
-          </span>
-          <span class="ml-4 text-base font-medium text-zinc-100">
-            {section.title}
-          </span>
-        </a>
-      {/each}
-    </div>
-    <div class="absolute inset-x-0 bottom-full z-10 h-4 bg-zinc-950"></div>
+
+    {#if open}
+      <div
+        transition:slide
+        class="absolute top-full right-0 left-0 bg-zinc-950/95 shadow-lg [@supports(backdrop-filter:blur(0))]:bg-zinc-950/80 [@supports(backdrop-filter:blur(0))]:backdrop-blur-sm"
+      >
+        {#each sections as section, sectionIndex (sectionIndex)}
+          <a
+            href="#{section.id}"
+            class="flex items-center px-4 py-3 hover:bg-zinc-800/50"
+            on:click={() => (open = false)}
+          >
+            <span class="text-primary font-michroma text-sm">
+              {(sectionIndex + 1).toString().padStart(2, "0")}
+            </span>
+            <span class="ml-4 text-zinc-100">
+              {section.title}
+            </span>
+          </a>
+        {/each}
+      </div>
+    {/if}
   </nav>
   <div
     class="hidden sm:flex sm:h-32 sm:justify-center sm:border-b sm:border-zinc-200 sm:bg-zinc-950/95 sm:[@supports(backdrop-filter:blur(0))]:bg-zinc-950/80 sm:[@supports(backdrop-filter:blur(0))]:backdrop-blur-sm"
@@ -128,13 +119,13 @@
       class="mb-[-2px] grid auto-cols-[minmax(0,15rem)] grid-flow-col text-base font-medium text-zinc-100 [counter-reset:section]"
     >
       {#each sections as section, sectionIndex (sectionIndex)}
-        <li key={section.id} class="flex [counter-increment:section]">
+        <li key={section.id} class=" flex [counter-increment:section]">
           <a
             href={`#${section.id}`}
             class={[
               "flex w-full flex-col items-center justify-center border-b-2 before:mb-2 before:font-mono before:text-sm before:content-[counter(section,decimal-leading-zero)]",
               sectionIndex === activeIndex
-                ? "border-blue-600 bg-orange-50 text-orange-600 before:text-orange-600"
+                ? "text-primary before:text-primary border-primary bg-orange-50"
                 : "border-transparent before:text-zinc-500 hover:bg-orange-50/40 hover:before:text-zinc-100",
             ]}
           >
