@@ -40,7 +40,7 @@
 <section
   id="traits"
   aria-labelledby="traits-title"
-  class="scroll-mt-14 pt-64 pb-16 sm:scroll-mt-32 sm:py-20 lg:py-32"
+  class="scroll-mt-14 py-16 sm:scroll-mt-32 sm:py-20 lg:py-32"
 >
   <Container>
     <SectionHeading number="1" id="traits-title">Traits</SectionHeading>
