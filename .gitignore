@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/node,turbo,svelte,vercel
-# Edit at https://www.toptal.com/developers/gitignore?templates=node,turbo,svelte,vercel
+# Created by https://www.toptal.com/developers/gitignore/api/node,turbo,svelte
+# Edit at https://www.toptal.com/developers/gitignore?templates=node,turbo,svelte
 
 ### Node ###
 # Logs
@@ -152,7 +152,4 @@ package
 # Turborepo task cache
 .turbo
 
-### Vercel ###
-.vercel
-
-# End of https://www.toptal.com/developers/gitignore/api/node,turbo,svelte,vercel
+# End of https://www.toptal.com/developers/gitignore/api/node,turbo,svelte
