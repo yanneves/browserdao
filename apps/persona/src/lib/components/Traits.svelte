@@ -313,7 +313,7 @@
 
         {#if isPersonaDropdownOpen}
           <div class="mt-2 divide-y border">
-            {#each contents as persona}
+            {#each contents as persona (persona.identity.Name)}
               {#if persona.identity.Name !== current_persona}
                 <button
                   type="button"
@@ -339,7 +339,7 @@
 
       <!-- desktop persona switcher -->
       <div class="hidden gap-4 sm:flex">
-        {#each contents as persona}
+        {#each contents as persona (persona.identity.Name)}
           <button
             type="button"
             class="relative"
@@ -387,7 +387,7 @@
 
           {#if isDropdownOpen}
             <div class="border-t">
-              {#each ["Identity", "Psychology", "Value Map", "Vocational", "Success Criteria"] as tab}
+              {#each ["Identity", "Psychology", "Value Map", "Vocational", "Success Criteria"] as tab (tab)}
                 {#if tab !== current_tab}
                   <button
                     type="button"
@@ -407,7 +407,7 @@
 
         <!-- desktop tabs -->
         <div class="hidden grid-cols-5 divide-x border-t border-b sm:grid">
-          {#each ["Identity", "Psychology", "Value Map", "Vocational", "Success Criteria"] as tab}
+          {#each ["Identity", "Psychology", "Value Map", "Vocational", "Success Criteria"] as tab (tab)}
             <button
               type="button"
               onclick={() => ChangeTab(tab)}
@@ -425,7 +425,7 @@
         <div class="p-4">
           {#if current_tab === "Identity"}
             <ul class="divide-foreground-alt divide-y">
-              {#each Object.entries(active_persona_data.identity) as [key, value]}
+              {#each Object.entries(active_persona_data.identity) as [key, value] (key)}
                 <li class="flex items-center justify-between py-4">
                   <p class="text-foreground-alt">{key}</p>
                   <p class="font-medium">{value}</p>
@@ -435,13 +435,13 @@
           {/if}
           {#if current_tab === "Psychology"}
             <ul class="divide-foreground-alt divide-y">
-              {#each Object.entries(active_persona_data.psychology) as [key, value]}
+              {#each Object.entries(active_persona_data.psychology) as [key, value] (key)}
                 {#if key === "MMPI"}
                   <li class="flex items-center justify-between py-4">
                     <p class="text-foreground-alt">{key}</p>
                     <p class="font-medium">-</p>
                   </li>
-                  {#each Object.entries(active_persona_data.psychology.MMPI) as [mmpi_key, mmpi_value]}
+                  {#each Object.entries(active_persona_data.psychology.MMPI) as [mmpi_key, mmpi_value] (mmpi_key)}
                     <li class="ml-4 flex items-center justify-between py-4">
                       <p class="text-foreground-alt">{mmpi_key}</p>
                       <p class="font-medium">{mmpi_value}</p>
@@ -458,11 +458,11 @@
           {/if}
           {#if current_tab === "Value Map"}
             <ul class="divide-foreground-alt divide-y">
-              {#each Object.keys(active_persona_data.value_map) as trait}
+              {#each Object.keys(active_persona_data.value_map) as trait (trait)}
                 <li class="py-4">
                   <p class="text-foreground-alt">{trait}</p>
                 </li>
-                {#each active_persona_data.value_map[trait] as subtrait}
+                {#each active_persona_data.value_map[trait] as subtrait (subtrait)}
                   <li class="ml-4 py-4">
                     <p>{subtrait}</p>
                   </li>
@@ -472,7 +472,7 @@
           {/if}
           {#if current_tab === "Vocational"}
             <ul class="divide-foreground-alt divide-y">
-              {#each Object.entries(active_persona_data.vocational) as [key, value]}
+              {#each Object.entries(active_persona_data.vocational) as [key, value] (key)}
                 <li class="flex items-center justify-between py-4">
                   <p class="text-foreground-alt">{key}</p>
                   <p class="font-medium">{value}</p>
@@ -482,7 +482,7 @@
           {/if}
           {#if current_tab === "Success Criteria"}
             <ul class="divide-foreground-alt divide-y">
-              {#each active_persona_data.success_criteria as trait, i}
+              {#each active_persona_data.success_criteria as trait, i (trait)}
                 <li class="flex items-center justify-between py-4">
                   <p class="font-medium">{i + 1}. {trait}</p>
                 </li>
