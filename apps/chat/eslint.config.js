@@ -20,6 +20,6 @@ export default [
     },
   },
   {
-    ignores: [".svelte-kit/", ".vercel/"],
+    ignores: [".svelte-kit/"],
   },
 ];
