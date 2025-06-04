@@ -10,13 +10,10 @@
 >
   <Container>
     <SectionHeading number="2" id="comparison-title">Comparison</SectionHeading>
-    <p
-      class="font-display mt-8 text-4xl font-bold tracking-tight text-zinc-100"
-    >
-      Over an hour of high quality, step-by-step video content to sharpen your
-      icon design workflow.
+    <p class="font-michroma mt-8 text-4xl tracking-tight">
+      Better Results with Persona
     </p>
-    <p class="mt-4 text-lg tracking-tight text-zinc-300">
+    <p class="text-foreground-alt mt-4 text-lg tracking-tight">
       Learn how to design your very first icons in a series of screencasts that
       will teach you everything you need to know to go from beginner to pro in
       just over an hour.
