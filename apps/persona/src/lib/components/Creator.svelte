@@ -28,12 +28,12 @@
       <div class="px-4 py-10 sm:px-10 sm:py-16 md:py-20 lg:px-20 lg:py-32">
         <SectionHeading number="5" id="creator-title">Creator</SectionHeading>
         <p
-          class="font-display mt-8 text-5xl font-extrabold tracking-tight text-zinc-100 sm:text-6xl"
+          class="font-michroma mt-8 text-5xl font-extrabold tracking-tight sm:text-6xl"
         >
           <span class="block text-orange-600">Yann Eves –</span> gm legends ✨ I’m
           the dev behind ‘Persona’.
         </p>
-        <p class="mt-4 text-lg tracking-tight text-zinc-300">
+        <p class="text-foreground-alt mt-4 text-lg tracking-tight">
           I’ve been designing icons professionally for over a decade and have
           worked with dozens of the biggest brands to create custom sets for
           their products. I’m an accomplished conference speaker, and have been
