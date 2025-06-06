@@ -1,4 +1,4 @@
 import { DATABASE_URL } from "$env/static/private";
-import pg from "pg";
+import postgres from "postgres";
 
-export default new pg.Pool({ connectionString: DATABASE_URL });
+export default () => postgres(DATABASE_URL, { max: 5, fetch_types: false });
