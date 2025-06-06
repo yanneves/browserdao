@@ -5,7 +5,7 @@
 <h2
   class={[
     classes,
-    "inline-flex items-center border-b px-4 py-1 text-orange-600",
+    "inline-flex w-full items-center border-b px-4 py-1 text-orange-600",
   ]}
   {...rest}
 >
