@@ -1,5 +1,5 @@
 import { error, redirect } from "@sveltejs/kit";
-import db from "$lib/server/database";
+import database from "$lib/server/database";
 import { v7 as uuidv7 } from "uuid";
 
 /** @type {import('./$types').PageServerLoad} */
@@ -13,70 +13,54 @@ export const load = async ({ params, cookies }) => {
   }
 
   // Connect database and begin transaction
-  const client = await db.connect();
-  await client.query("BEGIN");
+  const sql = database();
 
-  let res;
-  try {
-    res = await client.query(
-      `
+  const account = await sql.begin(async (sql) => {
+    let data;
+    try {
+      data = await sql`
         SELECT id, account
         FROM invites
-        WHERE id = $1::text
+        WHERE id = ${key}
         FOR UPDATE;
-      `,
-      [key],
-    );
-  } catch (err) {
-    await client.query("ROLLBACK");
-    await client.end();
-
-    console.error("Error querying database: ", err);
-    throw error(500, "Error locating invite");
-  }
-
-  const [invite] = res.rows;
-
-  if (!invite) {
-    console.warn("Invite queried with unregistered key: ", key);
-    throw redirect(307, "/invite/invalid");
-  }
-
-  // If no account already exists, create a new one
-  if (invite.account === null) {
-    const id = uuidv7();
-    invite.account = id;
-
-    try {
-      await client.query(
-        `
-          INSERT INTO accounts (id, balance)
-          VALUES ($1::uuid, 100);
-        `,
-        [id],
-      );
-
-      await client.query(
-        `
-          UPDATE invites
-          SET account = $2::uuid
-          WHERE id = $1::text AND account IS NULL;
-        `,
-        [key, id],
-      );
+      `;
     } catch (err) {
-      await client.query("ROLLBACK");
-      await client.end();
-
       console.error("Error querying database: ", err);
-      throw error(500, "Error processing invite");
+      throw error(500, "Error locating invite");
     }
-  }
 
-  // End transaction and disconnect database
-  await client.query("COMMIT");
-  await client.end();
+    const [invite] = data;
 
-  cookies.set("session", invite.account, { path: "/" });
+    if (!invite) {
+      console.warn("Invite queried with unregistered key: ", key);
+      throw redirect(307, "/invite/invalid");
+    }
+
+    // If no account already exists, create a new one
+    if (invite.account === null) {
+      const id = uuidv7();
+      invite.account = id;
+
+      try {
+        await sql`
+          INSERT INTO accounts (id, balance)
+          VALUES (${id}, 100);
+        `;
+
+        await sql`
+          UPDATE invites
+          SET account = ${id}
+          WHERE id = ${key} AND account IS NULL;
+        `;
+      } catch (err) {
+        console.error("Error querying database: ", err);
+        throw error(500, "Error processing invite");
+      }
+    }
+
+    return invite.account;
+  });
+
+  cookies.set("session", account, { path: "/" });
   throw redirect(307, "/");
 };

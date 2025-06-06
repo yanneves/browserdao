@@ -1,5 +1,5 @@
 import { error } from "@sveltejs/kit";
-import db from "$lib/server/database";
+import database from "$lib/server/database";
 
 /** @type {import('./$types').RequestHandler} */
 export async function PUT({ cookies, request }) {
@@ -13,14 +13,13 @@ export async function PUT({ cookies, request }) {
   const body = await request.json();
 
   try {
-    await db.query(
-      `
-        UPDATE replays
-        SET archived_at = NULL
-        WHERE id = ANY($1::uuid[])
-      `,
-      [body],
-    );
+    const sql = database();
+
+    await sql`
+      UPDATE replays
+      SET archived_at = NULL
+      WHERE id = ANY(${body})
+    `;
   } catch (err) {
     console.error("Error querying database: ", err);
     throw error(500, "Error archiving replays");

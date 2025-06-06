@@ -1,5 +1,5 @@
 import { error } from "@sveltejs/kit";
-import db from "$lib/server/database";
+import database from "$lib/server/database";
 
 /** @type {import('./$types').RequestHandler} */
 export async function GET({ cookies }) {
@@ -11,19 +11,16 @@ export async function GET({ cookies }) {
 
   let replays = [];
   try {
-    const res = await db.query(
-      `
-        SELECT *
-        FROM replays
-        WHERE account = $1::uuid
-        AND archived_at IS NULL
-        ORDER BY id DESC
-      `,
-      [session],
-    );
+    const sql = database();
+    const data = await sql`
+      SELECT *
+      FROM replays
+      WHERE account = ${session}
+      AND archived_at IS NULL
+      ORDER BY id DESC
+    `;
 
-    replays =
-      res.rows?.map(({ id, prompt, url }) => ({ id, prompt, url })) ?? [];
+    replays = data?.map(({ id, prompt, url }) => ({ id, prompt, url })) ?? [];
   } catch (err) {
     console.error("Error querying database: ", err);
     throw error(500, "Error loading replays");
