@@ -17,7 +17,6 @@
 <NavBar />
 <Traits />
 <Comparison />
-<Resources />
 <Waitlist />
 <Creator />
 <Footer />
