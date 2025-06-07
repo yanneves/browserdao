@@ -6,7 +6,6 @@
   import HeroOrnament from "$lib/components/HeroOrnament.svelte";
   import Introduction from "$lib/components/Introduction.svelte";
   import NavBar from "$lib/components/NavBar.svelte";
-  import Resources from "$lib/components/Resources.svelte";
   import Traits from "$lib/components/Traits.svelte";
   import Waitlist from "$lib/components/Waitlist.svelte";
 </script>
@@ -17,7 +16,6 @@
 <NavBar />
 <Traits />
 <Comparison />
-<Resources />
 <Waitlist />
 <Creator />
 <Footer />
