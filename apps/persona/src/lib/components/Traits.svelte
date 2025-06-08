@@ -271,7 +271,7 @@
 <section
   id="traits"
   aria-labelledby="traits-title"
-  class="scroll-mt-14 py-16 sm:scroll-mt-32 sm:py-20 lg:py-32"
+  class="scroll-mt-14 pt-16 sm:scroll-mt-32 sm:pt-20 lg:pt-32"
 >
   <Container class="space-y-6">
     <SectionHeading number="1" id="traits-title">Traits</SectionHeading>
