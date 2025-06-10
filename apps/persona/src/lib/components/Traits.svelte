@@ -1,7 +1,11 @@
 <script>
   import Container from "$lib/components/Container.svelte";
   import SectionHeading from "$lib/components/SectionHeading.svelte";
-  import image_amelia from "$lib/images/avatars/amelia.png?enhanced&w=124";
+  import image_amelia from "$lib/images/avatars/persona/amelia.png?enhanced&w=124";
+  import image_javier from "$lib/images/avatars/persona/javier.png?enhanced&w=124";
+  import image_jordan from "$lib/images/avatars/persona/jordan.png?enhanced&w=124";
+  import image_kirsten from "$lib/images/avatars/persona/kirsten.png?enhanced&w=124";
+  import image_ravi from "$lib/images/avatars/persona/ravi.png?enhanced&w=124";
   import AvatarDotsBackground from "./AvatarDotsBackground.svelte";
 
   const contents = [
@@ -57,7 +61,7 @@
       ],
     },
     {
-      avatar_img: image_amelia,
+      avatar_img: image_javier,
       identity: {
         Name: "Javier Castillo",
         Age: "38",
@@ -98,9 +102,9 @@
       ],
     },
     {
-      avatar_img: image_amelia,
+      avatar_img: image_kirsten,
       identity: {
-        Name: "Talia Nguyen",
+        Name: "Kirsten",
         Age: "21",
         Gender: "Female",
         Location: "Boston, MA",
@@ -150,7 +154,7 @@
       ],
     },
     {
-      avatar_img: image_amelia,
+      avatar_img: image_jordan,
       identity: {
         Name: "Jordan Park",
         Age: "34",
@@ -196,7 +200,7 @@
       ],
     },
     {
-      avatar_img: image_amelia,
+      avatar_img: image_ravi,
       identity: {
         Name: "Ravi Menon",
         Age: "29",
