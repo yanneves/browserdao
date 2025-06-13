@@ -51,3 +51,25 @@
   --font-michroma: "Michroma", sans-serif;
   --font-display: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
 }
+
+/* via chatgpt */
+/* app.css or global.css */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #999 transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #999;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
