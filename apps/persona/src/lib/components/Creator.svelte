@@ -28,19 +28,20 @@
       <div class="px-4 py-10 sm:px-10 sm:py-16 md:py-20 lg:px-20 lg:py-32">
         <SectionHeading number="5" id="creator-title">Creator</SectionHeading>
         <p
-          class="font-michroma mt-8 text-5xl font-extrabold tracking-tight sm:text-6xl"
+          class="font-michroma mt-8 text-5xl font-extrabold tracking-tight text-balance sm:text-6xl"
         >
-          <span class="block text-orange-600">Yann Eves –</span> gm legends ✨ I’m
+          <span class="block text-orange-600">
+            <span class="hidden sm:inline">My name is</span>
+            Yann Eves –
+          </span>
           the dev behind ‘Persona’.
         </p>
         <p class="text-foreground-alt mt-4 text-lg tracking-tight">
-          I’ve been designing icons professionally for over a decade and have
-          worked with dozens of the biggest brands to create custom sets for
-          their products. I’m an accomplished conference speaker, and have been
-          teaching icon design workshops every month for the last three years.
-          I’ve worked with designers of all skill levels and honed my way of
-          teaching to really click for anyone who has the itch to start
-          designing their own icons.
+          I’ve spent over 15 years building for the web, serving tens of
+          millions of users. In January 2025, we launched our AI Agent platform,
+          and demand from the web2 space quickly surged. Today, I’m focused on
+          helping shape an agentic web that moves beyond advertising and
+          supports human progress.
         </p>
         <p class="mt-8">
           <a
