@@ -16,7 +16,7 @@
     "@iconify-json/lucide": "^1.2.48",
     "@iconify/tailwind": "^1.2.0",
     "@sveltejs/adapter-cloudflare": "^7.0.4",
-    "@sveltejs/kit": "^2.21.4",
+    "@sveltejs/kit": "^2.21.5",
     "@sveltejs/vite-plugin-svelte": "^5.1.0",
     "@tailwindcss/postcss": "^4.1.10",
     "@tailwindcss/typography": "^0.5.16",
