@@ -1,5 +1,4 @@
 <script>
-  import Button from "$lib/components/Button.svelte";
   import Container from "$lib/components/Container.svelte";
   import Pattern from "$lib/components/Pattern.svelte";
 </script>
@@ -46,16 +45,16 @@
               class="peer relative z-10 w-full appearance-none bg-transparent px-4 py-2 text-base text-white placeholder:text-white/70 focus:outline-hidden sm:py-3"
             />
             <div
-              class="absolute inset-0 rounded-md border border-white/20 peer-focus:border-blue-300 peer-focus:bg-orange-500 peer-focus:ring-1 peer-focus:ring-blue-300 sm:rounded-xl"
+              class="absolute inset-0 border border-b-4 border-white/20 peer-focus:border-blue-300 peer-focus:bg-orange-500 peer-focus:ring-1 peer-focus:ring-blue-300"
             ></div>
           </div>
-          <Button
+          <button
             type="submit"
             color="white"
-            class="mt-4 w-full sm:relative sm:z-10 sm:mt-0 sm:w-auto sm:flex-none"
+            class="active:bg-primary mt-4 w-full cursor-pointer px-3 py-2 hover:bg-white hover:text-black active:text-white sm:relative sm:z-10 sm:mt-0 sm:w-auto sm:flex-none"
           >
             Remind me
-          </Button>
+          </button>
         </div>
       </form>
     </Container>
