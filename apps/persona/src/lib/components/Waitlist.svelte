@@ -1,5 +1,4 @@
 <script>
-  import Button from "$lib/components/Button.svelte";
   import Container from "$lib/components/Container.svelte";
   import Pattern from "$lib/components/Pattern.svelte";
 </script>
